@@ -1,0 +1,40 @@
+.navbar {
+    width: 100%;
+    background-color: #A70909; /* Red background color */
+    display: flex; /* Use flexbox for navbar layout */
+    justify-content: space-between; /* Space between home icon and links */
+    align-items: center; /* Align items vertically */
+    overflow: hidden; /* Ensures the content fits within the navigation bar */
+}
+
+.navbar a.home-link {
+    display: flex;
+    align-items: center; /* Aligns the image vertically */
+    padding: 14px 16px; /* Consistent padding with the links */
+}
+
+.navbar a.home-link img {
+    width: 300px; /* Example size, adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.navbar .nav-links {
+    list-style-type: none; /* Removes bullets from the list */
+    padding: 0; /* Removes padding */
+    margin: 0; /* Removes margins */
+    display: flex; /* Display the list items inline */
+}
+
+.navbar .nav-links li a {
+    display: block; /* Makes the entire area clickable */
+    color: white; /* Text color */
+    text-align: center; /* Centers the text */
+    padding: 14px 16px; /* Adds padding for spacing */
+    text-decoration: none; /* Removes underline from links */
+    font-size: 22px; /* Increased font size */
+}
+
+.navbar .nav-links li a:hover {
+    background-color: #ddd; /* Color change on hover */
+    color: black; /* Text color change on hover */
+}
