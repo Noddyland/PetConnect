@@ -20,6 +20,8 @@ go into petconnectserver and run:
 
 
 npm install express
+
 npm install nodemon -D
+
 npm run dev (to start the backend)
 
