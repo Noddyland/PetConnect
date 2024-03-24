@@ -28,5 +28,7 @@ npm install sqlite3
 
 npm install cors
 
+npm install bcrypt jsonwebtoken
+
 npm run dev (to start the backend)
 

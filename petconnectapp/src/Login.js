@@ -19,17 +19,21 @@ function Login() {
             // Store the token in localStorage/sessionStorage
             localStorage.setItem('token', token);
             // Redirect user or update UI
+            alert('WOW FANTASTIC');
         } else {
         alert('Login failed!');
         }
     };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit">Login</button>
-    </form>
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
   }
 

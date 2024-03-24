@@ -13,7 +13,7 @@ function Register() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await fetch('/users', {
+        const response = await fetch('/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -33,38 +33,41 @@ function Register() {
     };
   
     return (
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </label><br/>
-        <label>
-          Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label><br/>
-        <label>
-          Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label><br/>
-        <label>
-          Phone Number:
-          <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-        </label><br/>
-        <label>
-          First Name:
-          <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-        </label><br/>
-        <label>
-          Last Name:
-          <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-        </label><br/>
-        <label>
-          Biography:
-          <input type="text" value={biography} onChange={(e) => setBiography(e.target.value)} />
-        </label><br/>
-        
-        <button type="submit">Register</button>
-      </form>
+      <div>
+        <h1>Register</h1>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Username:
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          </label><br/>
+          <label>
+            Password:
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label><br/>
+          <label>
+            Email:
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </label><br/>
+          <label>
+            Phone Number:
+            <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+          </label><br/>
+          <label>
+            First Name:
+            <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+          </label><br/>
+          <label>
+            Last Name:
+            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          </label><br/>
+          <label>
+            Biography:
+            <input type="text" value={biography} onChange={(e) => setBiography(e.target.value)} />
+          </label><br/>
+          
+          <button type="submit">Register</button>
+        </form>
+      </div>
     );
   }
 
