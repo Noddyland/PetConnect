@@ -6,8 +6,10 @@ import Home from './Home'; // Your component for the Home page
 import Login from './Login'; // Your component for the About page
 import Services from './Services'; // Your component for the Services page
 import Contact from './Contact'; // Your component for the Contact page
+import Register from './Register';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function App() {
   
@@ -17,9 +19,15 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Login" element={
+          <div>
+            <Login />
+            <Link to="/Register">No account? Register here!</Link>
+          </div>
+          } />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/Register" element={<Register></Register>}/>
         </Routes>
       </Router>
 

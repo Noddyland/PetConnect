@@ -24,5 +24,9 @@ npm install express
 
 npm install nodemon -D
 
+npm install sqlite3
+
+npm install cors
+
 npm run dev (to start the backend)
 
