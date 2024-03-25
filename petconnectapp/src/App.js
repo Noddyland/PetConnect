@@ -7,6 +7,7 @@ import Login from './Login'; // Your component for the About page
 import Services from './Services'; // Your component for the Services page
 import Contact from './Contact'; // Your component for the Contact page
 import Register from './Register';
+import LogoutButton from './LogoutButton';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';

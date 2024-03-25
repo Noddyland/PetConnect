@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+
 
 function Login() {
     
-  
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -15,11 +16,17 @@ function Login() {
             body: JSON.stringify({ email, password }),
         });
         if (response.ok) {
-            const { token } = await response.json();
-            // Store the token in localStorage/sessionStorage
-            localStorage.setItem('token', token);
-            // Redirect user or update UI
-            alert('WOW FANTASTIC');
+            const userData = await response.json();
+            const { token } = userData;
+            const decodedToken = jwtDecode(token);
+            // Store the decoded token object as a string
+            localStorage.setItem('userObject', JSON.stringify(decodedToken));
+
+            // Retrieve the string and parse it back into an object
+            const userObjectString = localStorage.getItem('userObject');
+            const userObject = JSON.parse(userObjectString);
+            console.log(userObject.user.username);
+            // alert('WOW FANTASTIC');
         } else {
         alert('Login failed!');
         }

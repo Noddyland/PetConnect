@@ -14,6 +14,8 @@ npm install react-scripts
 
 npm install react-router
 
+npm install jwt-decode
+
 npm start (to start the frontend)
 
 
