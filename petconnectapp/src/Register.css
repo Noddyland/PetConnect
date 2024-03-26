@@ -1,4 +1,4 @@
-.form-container {
+.container {
     width: 100%;
     max-width: 400px;
     margin: 50px auto;
@@ -6,6 +6,7 @@
     background-color: #A70909;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    color: white;
   }
   
   .form-group {
