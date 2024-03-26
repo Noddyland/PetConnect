@@ -1,0 +1,81 @@
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #A70909;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .form-group {
+    margin-bottom: 10px; 
+  }
+  
+  .form-label {
+    color: white; 
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+  }
+  
+  .input-container {
+    background-color: #fff; 
+    border-radius: 5px;
+  }
+  
+  .input-container > input,
+  .input-container > select {
+    display: block;
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 8px 10px; 
+  }
+  
+  
+  .form-button {
+    background-color: #22577A; /* Dark blue for the button */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; 
+    margin-top: 10px; 
+    box-shadow: none; 
+  }
+  
+  /* Hover effect for the button */
+  .form-button:hover {
+    background-color: #153448;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between; 
+  }
+ 
+    
+  
+  /* Focus styles for inputs */
+  .form-input:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.1) /* Darker border on focus */
+  }
+  
+  /* Ensure the label and input text is aligned */
+  .form-label, .input-container > input, .input-container > select {
+    text-align: left;
+  }
+  

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Register.css'
 
 function Register() {
     const [username, setUsername] = useState('');
@@ -35,49 +36,108 @@ function Register() {
     };
   
     return (
-      <div>
+      <div className="container">
         <h1>Register</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Username:
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </label><br/>
-          <label>
-            Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </label><br/>
-          <label>
-            Email:
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </label><br/>
-          <label>
-            Phone Number:
-            <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-          </label><br/>
-          <label>
-            First Name:
-            <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-          </label><br/>
-          <label>
-            Last Name:
-            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-          </label><br/>
-          <label>
-            Biography:
-            <input type="text" value={biography} onChange={(e) => setBiography(e.target.value)} />
-          </label><br/>
-          <label>
-            I am a:
-            <select value={userRole} onChange={(e) => setUserRole(e.target.value)}>
+        <form onSubmit={handleSubmit} className="form-container">
+          <div className="form-group">
+            <label className="form-label">Username:</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="form-input"
+            />
+          </div>
+    
+          <div className="form-group">
+            <label className="form-label">Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-input"
+            />
+          </div>
+    
+          <div className="form-group">
+            <label className="form-label">Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-input"
+            />
+          </div>
+    
+          <div className="form-group">
+              <label className="form-label">Phone Number:</label>
+              <div className="input-container">
+                <input
+                  type="text"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  className="form-input"
+                />
+              </div>
+            </div>
+
+            <div className="form-row"> 
+              <div className="form-group form-half">
+                <label className="form-label">First Name:</label>
+                <div className="input-container">
+                  <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+              </div>
+
+              <div className="form-group form-half">
+                <label className="form-label">Last Name:</label>
+                <div className="input-container">
+                  <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Biography:</label>
+              <div className="input-container">
+                <input
+                  type="text"
+                  value={biography}
+                  onChange={(e) => setBiography(e.target.value)}
+                  className="form-input"
+                />
+              </div>
+            </div>
+    
+          <div className="form-group">
+            <label className="form-label">I am a:</label>
+            <select
+              value={userRole}
+              onChange={(e) => setUserRole(e.target.value)}
+              className="form-select"
+            >
               <option value="owner">Pet Owner</option>
               <option value="minder">Pet Minder</option>
             </select>
-          </label><br/>
-
-          <button type="submit">Register</button>
+          </div>
+    
+          <div className="form-group">
+            <button type="submit" className="form-button">Register</button>
+          </div>
         </form>
       </div>
     );
+    
   }
 
 export default Register;
