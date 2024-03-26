@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -21,12 +21,9 @@ function Login() {
             const decodedToken = jwtDecode(token);
             // Store the decoded token object as a string
             localStorage.setItem('userObject', JSON.stringify(decodedToken));
-
-            // Retrieve the string and parse it back into an object
-            const userObjectString = localStorage.getItem('userObject');
-            const userObject = JSON.parse(userObjectString);
-            console.log(userObject.user.username);
-            // alert('WOW FANTASTIC');
+            navigate('/');
+            window.location.reload();
+              
         } else {
         alert('Login failed!');
         }
