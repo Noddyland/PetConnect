@@ -9,6 +9,8 @@ function Register() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [biography, setBiography] = useState('');
+    const [userRole, setUserRole] = useState('owner'); // Default to 'owner', or leave empty if no default
+
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -18,7 +20,7 @@ function Register() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ username, password, email, phoneNumber, firstName, lastName, biography }),
+          body: JSON.stringify({ username, password, email, phoneNumber, firstName, lastName, biography, userRole }),
         });
         if (response.ok) {
           console.log("User registered successfully!");
@@ -64,7 +66,14 @@ function Register() {
             Biography:
             <input type="text" value={biography} onChange={(e) => setBiography(e.target.value)} />
           </label><br/>
-          
+          <label>
+            I am a:
+            <select value={userRole} onChange={(e) => setUserRole(e.target.value)}>
+              <option value="owner">Pet Owner</option>
+              <option value="minder">Pet Minder</option>
+            </select>
+          </label><br/>
+
           <button type="submit">Register</button>
         </form>
       </div>

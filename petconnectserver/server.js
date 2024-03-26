@@ -27,14 +27,14 @@ const user = {
 // REGISTER ROUTE
 app.post('/register', async (req, res) => {
   try {
-    const { username, password, email, phoneNumber, firstName, lastName, biography } = req.body;
+    const { username, password, email, phoneNumber, firstName, lastName, biography, userRole } = req.body;
     const accountStatus = "approved";
 
     // Hash the password with bcrypt
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const sql = 'INSERT INTO users (username, password, email, phoneNumber, firstName, lastName, biography, accountStatus) VALUES (?,?,?,?,?,?,?,?)';
-    db.run(sql, [username, hashedPassword, email, phoneNumber, firstName, lastName, biography, accountStatus], function(err) {
+    const sql = 'INSERT INTO users (username, password, email, phoneNumber, firstName, lastName, biography, accountStatus, role) VALUES (?,?,?,?,?,?,?,?,?)';
+    db.run(sql, [username, hashedPassword, email, phoneNumber, firstName, lastName, biography, accountStatus, userRole], function(err) {
       if (err) {
         res.status(400).json({"error": err.message});
         return;

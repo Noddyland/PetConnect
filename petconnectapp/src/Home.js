@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
-
-function PrintName(){
+function PrintHomeScreen(){
     if(localStorage.getItem('userObject') != null){
         const userObjectString = localStorage.getItem('userObject');
         const userObject = JSON.parse(userObjectString);
@@ -13,10 +12,12 @@ function PrintName(){
 
 
 const Home = () => {
+
+
     return (
         <div>
             <h1>Home</h1>
-            <PrintName></PrintName>
+            <PrintHomeScreen></PrintHomeScreen>
         </div>
     );
 };
