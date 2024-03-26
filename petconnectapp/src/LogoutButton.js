@@ -11,9 +11,9 @@ function LogoutButton(){
     }
     if (localStorage.getItem('userObject') != null){
         return (
-            <div>
-                <button onClick={handleLogout}>Logout</button>
-            </div>
+            <Link onClick={handleLogout}>
+                Logout
+            </Link>
         );
     }
     return (null);

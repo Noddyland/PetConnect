@@ -1,15 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import petConnectLogo from './petconnectlogo.png';
+import Login from './Login';
+import LogoutButton from './LogoutButton';
 
 const ShowProfile = () => {
     if (localStorage.getItem('userObject') != null){
         return (
-            "Profile"
+            <Link to="/profile">Profile</Link>
         );
     }
     return (null);
 }
+const LoginSwitch = () => {
+    if (localStorage.getItem('userObject') == null){
+        return (
+            <Link to="/login">Login</Link>
+        );
+    }
+    return (<LogoutButton></LogoutButton>);
+}
+
 const Navbar = () => {
     return (
         <nav className="navbar">
@@ -18,10 +29,10 @@ const Navbar = () => {
             </Link>
             <ul className="nav-links">
                 <li>
-                    <Link to="/profile"><ShowProfile></ShowProfile></Link>
+                    <ShowProfile></ShowProfile>
                 </li>
                 <li>
-                    <Link to="/login">Login</Link>
+                    <LoginSwitch></LoginSwitch>
                 </li>
                 <li>
                     <Link to="/services">Services</Link>
