@@ -6,14 +6,14 @@ function PrintHomeScreen() {
     if (localStorage.getItem('userObject') != null) {
         const userObjectString = localStorage.getItem('userObject');
         const userObject = JSON.parse(userObjectString);
-        return "Hello " + userObject.user.firstName;
+        if (userObject.user.role == "minder"){
+            return <p>pet minder homescreen coming soon...</p>
+        }
     }
-    return ""
+    return (<Search></Search>)
 }
 
-
-const Home = () => {
-
+const Search = () => {
     const [selectedService, setSelectedService] = useState('');
     const [selectedPet, setSelectedPet] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
@@ -103,9 +103,16 @@ const Home = () => {
                 </div>
                 <button id ="search-button" onClick={handleSearch}>Search</button>
             </div>
-            <PrintHomeScreen />
+            
         </div>
     );
+}
+
+const Home = () => {
+    return (
+        <PrintHomeScreen></PrintHomeScreen>
+    )
+    
 };
 
 

@@ -80,14 +80,15 @@ app.post('/login', (req, res) => {
         // Passwords match, create a token with the actual user data
         const userToken = jwt.sign({
           user: {
-            id: user.id, // Use actual user id from the database
-            username: user.username, // Use actual username from the database
-            email: user.email, // Use actual email from the database
-            phoneNumber: user.phoneNumber, // Use actual phoneNumber from the database
-            firstName: user.firstName, // Use actual firstName from the database
-            lastName: user.lastName, // Use actual lastName from the database
-            biography: user.biography, // Use actual biography from the database
-            accountStatus: user.accountStatus // Use actual accountStatus from the database
+            id: user.id, 
+            username: user.username, 
+            email: user.email, 
+            phoneNumber: user.phoneNumber, 
+            firstName: user.firstName, 
+            lastName: user.lastName, 
+            biography: user.biography, 
+            accountStatus: user.accountStatus, 
+            role: user.role
           }
         }, JWT_SECRET, { expiresIn: '1h' }); // Token expires in 1 hour
         
