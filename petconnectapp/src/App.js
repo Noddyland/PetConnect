@@ -8,6 +8,7 @@ import Services from './Services'; // Your component for the Services page
 import Contact from './Contact'; // Your component for the Contact page
 import Register from './Register';
 import Profile from './Profile';
+import SearchResults from './SearchResults';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -20,6 +21,7 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/search-results" element={<SearchResults />} />
           <Route path="/Login" element={
           <div>
             <Login />

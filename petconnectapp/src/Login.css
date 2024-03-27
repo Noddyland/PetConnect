@@ -1,6 +1,7 @@
 body{
     background-image: url(./background-image.png);
     background-size: cover;
+    background-repeat: no-repeat;
 }
 .login-container {
     width: 100%;
