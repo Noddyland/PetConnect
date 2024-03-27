@@ -1,0 +1,48 @@
+.centering_div{
+    align-self: center;
+}
+.registerform{
+height: 650px;
+margin-left: 33%;
+margin-right: 33%;
+display: flex;
+flex-direction: column;
+background: #A70909;
+border-radius: 35px;
+
+}
+.parentcontainer{
+    height: 60px;
+    margin-left: 30px;
+    margin-right: 30px;
+    
+}
+.input_text{
+    color: white;
+    height: 20px;
+    border: none;
+}
+.input_p{
+    text-align: left;
+}
+.input_box{
+    width: fill;
+    height: 40px;
+    background: #D9D9D9;
+    border-radius: 15px;
+    border: none;
+}
+.register_button{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: none;
+align-self: center;
+width: 337px;
+height: 62px;
+background: #22577A;
+border-radius: 45px;
+color: white;
+
+
+
+}
