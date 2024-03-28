@@ -13,10 +13,12 @@ function Register() {
     const [userRole, setUserRole] = useState('owner'); // Default to 'owner', or leave empty if no default
 
   
+    const backendUrl = 'http://localhost:5000'; // Define your backend URL
+
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await fetch('/register', {
+        const response = await fetch(`${backendUrl}/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -25,10 +27,10 @@ function Register() {
         });
         if (response.ok) {
           console.log("User registered successfully!");
-          // Handle successful registration here (e.g., redirect to login page)
+          // Handle successful registration here
         } else {
+          console.log(await response.json()); // Log the response body for more details
           console.error("Failed to register user.");
-          // Handle errors or unsuccessful registration here
         }
       } catch (error) {
         console.error('Error:', error);
