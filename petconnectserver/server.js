@@ -23,6 +23,14 @@ const user = {
   email: 'john.doe@example.com',
   // You can include more fields as needed
 };
+const cors = require('cors')
+app.use(cors())
+
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next()
+});
 
 // REGISTER ROUTE
 app.post('/register', async (req, res) => {

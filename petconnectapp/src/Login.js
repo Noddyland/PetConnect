@@ -10,25 +10,28 @@ function Login() {
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        const response = await fetch('/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        });
-        if (response.ok) {
-            const userData = await response.json();
-            const { token } = userData;
-            const decodedToken = jwtDecode(token);
-            // Store the decoded token object as a string
-            localStorage.setItem('userObject', JSON.stringify(decodedToken));
-            navigate('/');
-            window.location.reload();
-              
-        } else {
-        alert('Login failed!');
-        }
-    };
+      event.preventDefault();
+      const backendUrl = 'http://localhost:5000'; // Define your backend URL
+      const response = await fetch(`${backendUrl}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+          const userData = await response.json();
+          const { token } = userData;
+          // Assuming jwtDecode is a function you've defined or imported from a library to decode JWTs
+          const decodedToken = jwtDecode(token);
+          // Store the decoded token object as a string
+          localStorage.setItem('userObject', JSON.stringify(decodedToken));
+          // Assuming `navigate` is a function you've defined or imported from React Router for navigation
+          navigate('/');
+          window.location.reload();
+      } else {
+          alert('Login failed!');
+      }
+  };
+  
 
     return (
       <div className="login-container">
