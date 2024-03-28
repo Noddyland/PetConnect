@@ -20,11 +20,11 @@ function Login() {
       if (response.ok) {
           const userData = await response.json();
           const { token } = userData;
-          // Assuming jwtDecode is a function you've defined or imported from a library to decode JWTs
+        
           const decodedToken = jwtDecode(token);
-          // Store the decoded token object as a string
+          
           localStorage.setItem('userObject', JSON.stringify(decodedToken));
-          // Assuming `navigate` is a function you've defined or imported from React Router for navigation
+          
           navigate('/');
           window.location.reload();
       } else {
