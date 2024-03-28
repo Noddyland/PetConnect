@@ -1,0 +1,34 @@
+#search-container{
+    display: flex;
+    flex-direction: column;
+    background-color: #A70909;
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#input-content{
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown-content{
+    padding: 1rem;
+    background-color: #A70909;
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-bottom: 0.25rem;
+    color: white;
+    display: flex;
+  }
+
+#search-button{
+   width: 4rem;
+   align-self: center;
+}
