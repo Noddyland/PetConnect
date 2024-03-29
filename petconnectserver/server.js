@@ -9,12 +9,14 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'petconnect'; 
 
 // connect to the database.
-let db = new sqlite3.Database('./petconnect.db', (err) => {
+let db = new sqlite3.Database('./petconnect.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
   if (err) {
     console.error(err.message);
+  } else {
+    console.log('Connected to the SQLite database.');
   }
-  console.log('Connected to the SQLite database.');
 });
+
 
 // Example user object
 const user = {
