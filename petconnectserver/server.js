@@ -7,6 +7,8 @@ app.use(express.json()); // for parsing application/json
 const sqlite3 = require('sqlite3').verbose();
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'petconnect'; 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 // connect to the database.
 let db = new sqlite3.Database('./petconnect.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
@@ -18,13 +20,6 @@ let db = new sqlite3.Database('./petconnect.db', sqlite3.OPEN_READWRITE | sqlite
 });
 
 
-// Example user object
-const user = {
-  id: 123,
-  username: 'johndoe',
-  email: 'john.doe@example.com',
-  // You can include more fields as needed
-};
 const cors = require('cors')
 app.use(cors())
 
@@ -111,6 +106,32 @@ app.post('/login', (req, res) => {
     });
   });
 });
+
+// SEARCH ROUTE
+app.post('/search', (req, res) => {
+  const { pet, city } = req.body; // doesnt use date.. for now!
+
+  const sql = `
+    SELECT u.id, u.username, u.email, u.phoneNumber, u.firstName, u.lastName, u.biography, u.accountStatus, u.role
+    FROM users u
+    JOIN minderStatus ms ON u.id = ms.minderId
+    WHERE ms.active = 'true'
+      AND ms.city = ?
+      AND ms.${pet} = 'true'
+      AND u.role = 'minder'
+  `;
+
+  db.all(sql, [city], (err, rows) => {
+    if (err) {
+      console.error('Database error:', err.message);
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    // Send result.
+    res.json(rows);
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
