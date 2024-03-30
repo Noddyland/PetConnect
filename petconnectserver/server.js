@@ -132,27 +132,32 @@ app.post('/search', (req, res) => {
   });
 });
 
-app.post('/pets', (req, res) =>{
-  const {userid} = req.body
+// GET PETS ROUTE 
+app.get('/pets/:userid', (req, res) => {
+  const { userid } = req.params;
   const sql = `
-  SELECT *
-  FROM pets 
-  WHERE ownerId = ${userid}`;
+    SELECT *
+    FROM pets 
+    WHERE ownerId = ?`;
+
   db.all(sql, [userid], (err, rows) => {
-    if (err){
-      console.error('error:', err.message, 'idk')
-      res.status(500).json({error: err.message})
+    if (err) {
+      console.error('Error:', err.message);
+      return res.status(500).json({error: err.message});
     }
-    res.json(rows)
-  })
-})
+    res.json(rows);
+  });
+});
+
+
+// ADD PET ROUTE
 
 app.post('/addpet', (req, res)=> {
   try {
-    const {type, dob, breed, weight, diet, special, userid} = req.body
+    const {userid, petName, type, dob, breed, weight, diet, special, emergencyNumber} = req.body
     const sql = `
-    INSERT INTO pets (ownerId, type, dob, breed, weightKg, dietaryPreferences, specialRequirements) VALUES (?, ?, ?, ?, ?, ?, ?)`
-    db.run(sql, [userid, type, dob, breed, weight, diet, special], function(err){
+    INSERT INTO pets (ownerId, name, type, dob, breed, weightKg, dietaryPreferences, specialRequirements, EmergencyContactInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    db.run(sql, [userid, petName, type, dob, breed, weight, diet, special, emergencyNumber], function(err){
       if (err){
         res.status(400).json({"error": err.message});
         return;
