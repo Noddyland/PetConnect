@@ -132,7 +132,41 @@ app.post('/search', (req, res) => {
   });
 });
 
+app.post('/pets', (req, res) =>{
+  const {userid} = req.body
+  const sql = `
+  SELECT *
+  FROM pets 
+  WHERE ownerId = ${userid}`;
+  db.all(sql, [userid], (err, rows) => {
+    if (err){
+      console.error('error:', err.message, 'idk')
+      res.status(500).json({error: err.message})
+    }
+    res.json(rows)
+  })
+})
 
+app.post('/addpet', (req, res)=> {
+  try {
+    const {type, dob, breed, weight, diet, special, userid} = req.body
+    const sql = `
+    INSERT INTO pets (ownerId, type, dob, breed, weightKg, dietaryPreferences, specialRequirements) VALUES (?, ?, ?, ?, ?, ?, ?)`
+    db.run(sql, [userid, type, dob, breed, weight, diet, special], function(err){
+      if (err){
+        res.status(400).json({"error": err.message});
+        return;
+      }
+      res.json({
+        "message": "success",
+        "data": { id: this.lastID }
+      });
+    })
+  } catch (error) {
+    console.error('error:', error)
+    res.status(500).json({'error': 'an error occured when trying to add pet'})
+  }
+})
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
