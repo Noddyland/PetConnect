@@ -172,6 +172,42 @@ app.post('/addpet', (req, res)=> {
     res.status(500).json({'error': 'an error occured when trying to add pet'})
   }
 })
+
+
+app.get('/bookings/:userid', (req, res) => {
+  const { userid } = req.params;
+  const sql = `
+    SELECT *
+    FROM bookings AS b
+    LEFT OUTER JOIN  pets AS p ON b.petId = p.petId
+    LEFT OUTER JOIN users AS u ON b.ownerId = u.id
+    WHERE b.minderID = ?`;
+
+  db.all(sql, [userid], (err, rows) => {
+    if (err) {
+      console.error('Error:', err.message);
+      return res.status(500).json({error: err.message});
+    }
+    res.json(rows);
+  });
+});
+
+app.get('/review/:userid', (req, res) => {
+  const { userid } = req.params;
+  const sql = `
+    SELECT r.*, u.username
+    FROM reviews AS r
+    LEFT OUTER JOIN users AS u on r.authorID = u.id
+    WHERE r.subjectID =?`;
+
+  db.all(sql, [userid], (err, rows) => {
+    if (err) {
+      console.error('Error:', err.message);
+      return res.status(500).json({error: err.message});
+    }
+    res.json(rows);
+  });
+});
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
