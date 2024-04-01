@@ -1,0 +1,66 @@
+.book-minder-container {
+    background-color: white;
+    color: #333; /* for regular text */
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book-minder-header {
+    color: #A70909;
+    text-align: center;
+}
+
+.service-info, .date-info, .profile-link {
+    color: #A70909;
+    margin: 10px 0;
+}
+
+.profile-link a {
+    color: #A70909;
+    text-decoration: none;
+}
+
+.profile-link a:hover {
+    text-decoration: underline;
+}
+
+/* Assuming you have a dropdown for pet selection */
+.pet-select-dropdown {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #A70909;
+    border-radius: 4px;
+    box-sizing: border-box; /* To include padding in the dropdown's width */
+}
+
+/* Styling for the time selection if it's a similar dropdown */
+.time-input-dropdown {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #A70909;
+    border-radius: 4px;
+    box-sizing: border-box; /* To include padding in the input's width */
+}
+
+
+.request-to-book-button {
+    display: block; /* Make the button block to fill the container */
+    width: 100%; /* Full width */
+    padding: 10px 20px; /* Adequate padding */
+    margin: 20px 0; /* Some space above and below */
+    background-color: #A70909; /* Theme color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Cursor change to indicate clickability */
+    font-size: 16px; /* Adequate font size */
+}
+
+.request-to-book-button:hover {
+    background-color: #940000; /* Slightly darker on hover for feedback */
+}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 const Search = () => {
-    const [selectedService, setSelectedService] = useState('');
-    const [selectedPet, setSelectedPet] = useState('');
+    const [selectedService, setSelectedService] = useState('pet-sitting');
+    const [selectedPet, setSelectedPet] = useState('dog');
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
     const navigate = useNavigate();
@@ -35,8 +35,17 @@ const Search = () => {
             });
             
             const data = await response.json();
+            const updatedData = data.map(item => ({
+                ...item,
+                dateTime: selectedDate,
+                service: selectedService
+              }));
 
-            navigate('/SearchResults',{ state: { searchResults: data } });
+
+            navigate('/SearchResults',{ state: { 
+                searchResults: updatedData,
+            } }
+            );
 
         } catch (error) {
             console.error('Error:', error);
@@ -58,7 +67,7 @@ const Search = () => {
                     <div className="input-container">
                         <div className="dropdown-content">
                             <label htmlFor="services">Service</label>
-                            <select name="services" id="services" onChange={handleServiceChange}>
+                            <select name="services" id="services" onChange={handleServiceChange} defaultValue="pet-sitting">
                                 <option
                                     value="pet-sitting">Pet Sitting
                                 </option>

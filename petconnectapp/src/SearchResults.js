@@ -1,5 +1,40 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+const BookingLink = ({ minderObject }) => {
+    const navigate = useNavigate();
+
+
+    const GoBook = () => {
+        console.log('Booking object:', minderObject);
+
+        if (minderObject) {
+            navigate('/BookMinder', { state: { minderObject: minderObject } });
+        } else {
+            console.error('No minder object available for booking.');
+        }
+    };
+
+    if (localStorage.getItem('userObject') != null) {
+        return (
+            <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>
+                <span 
+                    style={{ cursor: 'pointer', color: 'green', textDecoration: 'underline' }}
+                    onClick={GoBook} 
+                >
+                    Book {minderObject.firstName}
+                </span>
+            </td>
+        );
+    }
+    return (
+        <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px', color: 'green' }}>
+            Sign up to book!
+        </td>
+    );
+};
+
 
 const SearchResults = () => {
     const location = useLocation();
@@ -16,7 +51,7 @@ const SearchResults = () => {
                         <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Last Name</th>
                         <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Email</th>
                         <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Phone Number</th>
-                        {/* Adjust styles as necessary for additional headers */}
+                        <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Book</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +61,7 @@ const SearchResults = () => {
                             <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.lastName}</td>
                             <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.email}</td>
                             <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.phoneNumber}</td>
-                            {/* Render more data as needed */}
+                            <BookingLink minderObject = {result} ></BookingLink>
                         </tr>
                     ))}
                 </tbody>

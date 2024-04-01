@@ -9,6 +9,7 @@ import Contact from './Contact'; // Your component for the Contact page
 import Register from './Register';
 import Profile from './Profile';
 import SearchResults from './SearchResults';
+import BookMinder from './BookMinder';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -32,6 +33,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/Register" element={<Register></Register>}/>
+          <Route path="/BookMinder" element={<BookMinder />}/>
         </Routes>
       </Router>
 
