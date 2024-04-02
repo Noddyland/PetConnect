@@ -42,7 +42,7 @@ const ViewPets = () => {
             {pets.length > 0 ? (
                 <ul className="my-pets-list">
                     {pets.map((pet) => (
-                        <li key={pet.id}>
+                        <li key={pet.petId}>
                             <strong>Name:</strong> {pet.name}, <strong>Type:</strong> {pet.type}, <strong>DOB:</strong> {pet.dob}
                         </li>
                     ))}

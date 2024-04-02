@@ -47,8 +47,7 @@ const SearchResults = () => {
             <table style={{ borderCollapse: 'collapse', width: '80%', marginTop: '20px', backgroundColor: 'white' }}>
                 <thead>
                     <tr>
-                        <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>First Name</th>
-                        <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Last Name</th>
+                        <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Name</th>
                         <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Email</th>
                         <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Phone Number</th>
                         <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px' }}>Book</th>
@@ -57,8 +56,7 @@ const SearchResults = () => {
                 <tbody>
                     {searchResults.map((result, index) => (
                         <tr key={index}>
-                            <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.firstName}</td>
-                            <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.lastName}</td>
+                            <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{`${result.firstName} ${result.lastName}`}</td>
                             <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.email}</td>
                             <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.phoneNumber}</td>
                             <BookingLink minderObject = {result} ></BookingLink>

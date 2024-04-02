@@ -29,7 +29,6 @@ const BookMinder = () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        console.log(data);
                         setPets(data);
                     } else {
                         console.error("Failed to fetch pets.");
@@ -114,7 +113,7 @@ const BookMinder = () => {
             min="0" 
             />
             <div className="profile-link">
-                <p>View <Link to={`/profile/${minderObject.id}`} style={{ color: '#A70909' }}>{minderObject.firstName}'s profile</Link></p>
+                <p>View <Link to={`/ViewProfile?userId=${minderObject.id}`} style={{ color: '#A70909' }}>{minderObject.firstName}'s profile</Link></p>
             </div>
             <button className="request-to-book-button" onClick={handleSubmit}>Request to Book</button>
             <p id = "bookingConfirmation" style={{ color: 'green' }}></p>

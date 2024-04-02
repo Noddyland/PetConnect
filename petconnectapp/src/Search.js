@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 const Search = () => {
     const [selectedService, setSelectedService] = useState('pet-sitting');
     const [selectedPet, setSelectedPet] = useState('dog');

@@ -238,3 +238,31 @@ app.post('/BookMinder', (req, res)=> {
     res.status(500).json({'error': 'an error occured when trying to request booking'})
   }
 })
+
+// VIEW PROFILE ROUTE
+
+app.get('/ViewProfile/:userId', (req, res) => {
+  // Note: Ensure the parameter name matches what's in the URL
+  const { userId } = req.params; 
+
+  // SQL query to select specific fields from the users table
+  const sql = `
+    SELECT username, email, phoneNumber, firstName, lastName, biography, accountStatus, role
+    FROM users
+    WHERE id = ?
+  `;
+
+  // Execute the SQL query
+  db.all(sql, [userId], (err, rows) => {
+    if (err) {
+      console.error('Error:', err.message);
+      return res.status(500).json({ error: err.message });
+    }
+
+    if (rows.length > 0) {
+      res.json(rows[0]); 
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  });
+});
