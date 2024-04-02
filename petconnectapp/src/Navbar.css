@@ -1,11 +1,13 @@
 .navbar {
     width: 100%;
-    background-color: #A70909; /* Red background color */
+    background-color: #f0f0f0; /* Red background color */
     display: flex; /* Use flexbox for navbar layout */
     justify-content: space-between; /* Space between home icon and links */
     align-items: center; /* Align items vertically */
     overflow: hidden; /* Ensures the content fits within the navigation bar */
+    color: black;
 }
+
 
 .navbar a.home-link {
     display: flex;
@@ -23,11 +25,12 @@
     padding: 0; /* Removes padding */
     margin: 0; /* Removes margins */
     display: flex; /* Display the list items inline */
+    color: black;
 }
 
 .navbar .nav-links li a {
     display: block; /* Makes the entire area clickable */
-    color: white; /* Text color */
+    color: black; /* Text color */
     text-align: center; /* Centers the text */
     padding: 14px 16px; /* Adds padding for spacing */
     text-decoration: none; /* Removes underline from links */
@@ -35,6 +38,6 @@
 }
 
 .navbar .nav-links li a:hover {
-    background-color: #ddd; /* Color change on hover */
-    color: black; /* Text color change on hover */
+ /* Color change on hover */
+    color: #A70909; /* Text color change on hover */
 }

@@ -1,0 +1,57 @@
+.services-container {
+    background-size: cover;
+    padding: 2rem 2rem;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .service-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 15px 30px 0px rgba(0,0,0,0.1);
+  }
+  
+  .service-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .service-description {
+    font-size: 1rem;
+    color: #555;
+    margin: 1rem 0;
+  }
+  
+  .service-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #22577A;
+    margin-bottom: 1.5rem;
+  }
+  
+  .service-cta {
+    padding: 0.6rem 1.2rem;
+    background-color: #ff4500; /* Or another attention-grabbing color */
+    color: white;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .service-cta:hover {
+    background-color: #c03600; /* Darker shade for hover effect */
+  }
+  
