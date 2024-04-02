@@ -1,0 +1,15 @@
+.profile-to-pets-button {
+    display: inline-block;
+    background-color: #A70909;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.profile-to-pets-button:hover {
+    background-color: #940000;
+}
+

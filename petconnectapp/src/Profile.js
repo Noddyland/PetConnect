@@ -1,38 +1,49 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Pets from './Pets';
+import './Profile.css';
+
+import ViewPets from './ViewPets';
 import Bookings from './bookings';
-import Reviews from './review';
+import DisplayReviews from './DisplayReviews';
 
 function DisplayDetails(){
     if(localStorage.getItem('userObject') != null){
         const userObjectString = localStorage.getItem('userObject');
         const userObject = JSON.parse(userObjectString);
-        console.log(userObject.user.role)
-        if(userObject.user.role === 'owner'){
 
-            return <div>
-            {userObject.user.firstName} {userObject.user.lastName}<br/>
-            {userObject.user.biography}<br/>
-            {userObject.user.role}
-            <div><Reviews/></div>
-            <div><Pets /></div>
-        </div>;
-        }
-        else if (userObject.user.role === 'minder'){
-
-            return <div>
+        // Common elements
+        const userDetails = (
+            <div>
                 {userObject.user.firstName} {userObject.user.lastName}<br/>
                 {userObject.user.biography}<br/>
                 {userObject.user.role}
-                <div><Reviews/></div>
-                <div><Bookings/></div>
             </div>
-            }
-    
+        );
+
+        const reviews = <div><DisplayReviews/></div>;
+
+        if(userObject.user.role === 'owner'){
+            return <div>
+                {userDetails}
+                {reviews}
+                <div><ViewPets /></div>
+                <div>
+                    <Link to="/pets" className="profile-to-pets-button">Manage My Pets</Link>
+                </div>
+            </div>;
+        }
+        else if (userObject.user.role === 'minder'){
+            return <div>
+                {userDetails}
+                {reviews}
+                <div><Bookings/></div>
+            </div>;
+        }
     }
-    return ""
+    return "";
 }
+
 
 function Profile() {
 

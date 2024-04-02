@@ -10,6 +10,7 @@ import Register from './Register';
 import Profile from './Profile';
 import SearchResults from './SearchResults';
 import BookMinder from './BookMinder';
+import Pets from './Pets';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -34,6 +35,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/Register" element={<Register></Register>}/>
           <Route path="/BookMinder" element={<BookMinder />}/>
+          <Route path="/Pets" element={<Pets />} />
         </Routes>
       </Router>
 
