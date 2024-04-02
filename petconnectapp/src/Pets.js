@@ -129,7 +129,9 @@ const Pets = () => {
                             <ViewPets />
                         </td>
                     </tr>
+            
                 </tbody>
+                
             </table>
             <BackButton />
         </div>);

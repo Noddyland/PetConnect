@@ -1,156 +1,126 @@
-/* Pets.css */
-.pets-container {
+/* Global styles */
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+/* Container styles */
+.pets-container,
+.my-pets-container {
     max-width: 800px;
     margin: 20px auto;
-    border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.pets-header {
-    color: white;
-    background-color: #A70909;
-    padding: 15px;
-    text-align: center;
-}
-
-.pets-body {
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: white;
     color: #333;
-    padding: 20px;
-    text-align: left;
 }
 
+/* Header styles */
+.pets-header,
+.my-pets-header {
+    background-color: #A70909;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+/* Form input styles */
 .pets-form input[type="text"],
 .pets-form input[type="date"],
 .pets-form input[type="number"],
-.pets-form select {
-    width: calc(100% - 24px); /* Adjust based on padding */
-    padding: 10px;
+.pets-form select,
+.pets-form button {
+    width: 100%;
+    padding: 12px;
     margin-bottom: 15px;
-    border: 1px solid #A70909;
+    border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box; /* Add box-sizing */
 }
 
-.pets-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #A70909;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.pets-form button:hover {
-    background-color: #940000;
-}
-
-.pets-list ul {
-    list-style: none;
-    padding: 0;
-}
-
-.pets-list li {
-    padding: 8px;
-    border-bottom: 1px solid #A70909;
-}
-
-.pets-list li:last-child {
-    border-bottom: none;
-}
-
-.label {
-    display: block;
-    margin-bottom: 5px;
-    color: #A70909;
-}
-
-/* Enhancing the 'Add Pet' button style */
-.pets-form button {
-    width: 100%;
-    padding: 12px 20px; /* Adjust padding for better visual */
-    background-color: #A70909; /* Theme color */
-    color: white; /* Text color */
-    border: none;
-    border-radius: 5px; /* Slightly rounded corners for a modern look */
-    font-size: 16px; /* Larger font size for readability */
-    font-weight: bold; /* Make the text bold */
-    cursor: pointer; /* Change cursor to pointer to indicate clickability */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.pets-form button:hover {
-    background-color: #940000; /* Darker shade on hover for feedback */
-}
-
-.pets-form button:focus {
-    outline: 2px solid #fff; /* White outline on focus for accessibility */
-    outline-offset: 2px; /* Distance between outline and button border */
-}
-
-.pets-form button:active {
-    background-color: #7a0000; /* Even darker shade to simulate a press effect */
-}
-
-.my-pets-container {
-    background-color: white;
-    color: #333;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.my-pets-header {
-    color: #A70909;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.my-pets-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.my-pets-list li {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    border-left: 5px solid #A70909;
-    border-radius: 4px;
-}
-
-.my-pets-list li:last-child {
-    margin-bottom: 0;
-}
-
-.my-pets-list li:hover {
-    background-color: #eee;
-}
-
-.no-pets-found {
-    color: #A70909;
-    text-align: center;
-}
-
-/* Align content in table cells to the top */
-.pets-table-cell {
-    vertical-align: top; /* Aligns content to the top of the cell */
-    padding: 8px; /* Adjust padding as needed */
-}
-
+/* Button styles */
+.pets-form button,
 button {
     background-color: #A70909;
     color: white;
-    padding: 10px 15px;
+    padding: 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
+.pets-form button:hover,
 button:hover {
     background-color: #940000;
 }
+
+.pets-form button:focus,
+button:focus {
+    outline: none; /* Removing the outline if you want a cleaner look */
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #A70909; /* Adding a shadow for accessibility */
+}
+
+/* List styles */
+.pets-list ul,
+.my-pets-list {
+    list-style: none;
+    padding: 0;
+}
+
+.pets-list li,
+.my-pets-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    border-left: 5px solid #A70909;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.pets-list li:last-child,
+.my-pets-list li:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.pets-list li:hover,
+.my-pets-list li:hover {
+    background-color: #eee;
+}
+
+/* Utility classes */
+.label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Alignment */
+.pets-table-cell {
+    vertical-align: top;
+    padding: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pets-container,
+    .my-pets-container {
+        width: auto;
+        margin: 10px;
+    }
+
+    .pets-form input[type="text"],
+    .pets-form input[type="date"],
+    .pets-form input[type="number"],
+    .pets-form select,
+    .pets-form button,
+    button {
+        padding: 10px;
+    }
+}
+
