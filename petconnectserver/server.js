@@ -173,6 +173,7 @@ app.post('/addpet', (req, res)=> {
   }
 })
 
+// GET BOOKINGS ROUTE
 
 app.get('/bookings/:userid', (req, res) => {
   const { userid } = req.params;
@@ -191,6 +192,8 @@ app.get('/bookings/:userid', (req, res) => {
     res.json(rows);
   });
 });
+
+// GET REVIEWS ROUTE
 
 app.get('/review/:userid', (req, res) => {
   const { userid } = req.params;
@@ -211,3 +214,27 @@ app.get('/review/:userid', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+// REQUEST BOOKING ROUTE
+
+app.post('/BookMinder', (req, res)=> {
+  try {
+    const {ownerId, minderId, petId, date, time, duration} = req.body
+    let dateTime = `${date} ${time}`;
+    const status = "pending";
+
+    const sql = `INSERT INTO bookings (ownerId, minderId, petId, dateTime, durationMins, status) VALUES (?, ?, ?, ?, ?, ?)`
+    db.run(sql, [ownerId, minderId, petId, dateTime, duration, status], function(err){
+      if (err){
+        res.status(400).json({"error": err.message});
+        return;
+      }
+      res.json({
+        "message": "success",
+      });
+    })
+  } catch (error) {
+    console.error('error:', error)
+    res.status(500).json({'error': 'an error occured when trying to request booking'})
+  }
+})

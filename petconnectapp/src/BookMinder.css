@@ -64,3 +64,13 @@
 .request-to-book-button:hover {
     background-color: #940000; /* Slightly darker on hover for feedback */
 }
+
+.duration-input-dropdown {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #A70909;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
