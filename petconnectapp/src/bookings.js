@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './bookings.css';
 const ViewBookings = () => {
     const [bookings, setBookings] = useState([]);
     
@@ -40,8 +40,8 @@ const ViewBookings = () => {
                 {bookings.length > 0 ? (
                     <ul>
                         {bookings.map((booking) => (
-                            <li key={booking.id}>
-                                booking user: {booking.username} pet name: {booking.name} pet type: {booking.type} date: {booking.dateTime} duration: {booking.durationMins} mins
+                            <li key={booking.id} className ='bookings_'>
+                                <strong>booking user:</strong> {booking.username} <strong>pet name:</strong> {booking.name} <strong>pet type:</strong> {booking.type} <strong>date:</strong> {booking.dateTime} <strong>duration:</strong> {booking.durationMins} mins
                             </li>
                         ))}
                     </ul>
@@ -65,7 +65,7 @@ const Bookings = () => {
         <tbody>
             <tr>
                 
-                <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>
+                <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '5px' }} >
                     <ViewBookings />
                 </td>
             </tr>

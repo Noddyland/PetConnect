@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './Review.css'
 const ViewReviews = () => {
     const [reviews, setReviews] = useState([]);
     const [overall_rating, setrating] = useState(0.00)
@@ -21,7 +21,7 @@ const ViewReviews = () => {
                     
                     if (response.ok) {
                         const data = await response.json();
-                        console.log(data)
+                        // console.log(data)
                         setReviews(data);
                     } else {
                         const errorData = await response.json();
@@ -38,10 +38,15 @@ const ViewReviews = () => {
     if(reviews.length >0){
         return(
             <div>
+                <h3>
+                    Reviews
+                </h3>
                 <ul>
                     {reviews.map((review) => (
-                        <li key={review.id} id='review_'>
-                            review author: {review.username} review rating:  {review.starRating} review: {review.reviewDetails}
+                        <li key={review.id} className='review_'>
+                            Rating:  {review.starRating} <br/> 
+                            Review: {review.reviewDetails} <br/>
+                            By {review.username}
                         </li>
                     ))}
                 </ul>
