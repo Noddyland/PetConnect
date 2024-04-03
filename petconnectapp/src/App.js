@@ -12,6 +12,7 @@ import SearchResults from './SearchResults';
 import BookMinder from './BookMinder';
 import Pets from './Pets';
 import ViewProfile from './ViewProfile';
+import EditServices from './editservices';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -38,6 +39,7 @@ function App() {
           <Route path="/BookMinder" element={<BookMinder />}/>
           <Route path="/Pets" element={<Pets />} />
           <Route path="/ViewProfile" element={<ViewProfile />} />
+          <Route path="/EditServices" element={<EditServices/>} />
         </Routes>
       </Router>
 

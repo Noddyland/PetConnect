@@ -1,0 +1,24 @@
+.edit-services {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #A70909;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-services div {
+    margin-bottom: 10px;
+    /* Add spacing between form elements */
+    text-align: center;
+    /* Align labels in the center */
+}
+
+.edit-services label {
+    display: block;
+    /* Ensure each label is on its own line */
+}

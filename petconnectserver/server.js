@@ -6,7 +6,7 @@ const saltRounds = 10;
 app.use(express.json()); // for parsing application/json
 const sqlite3 = require('sqlite3').verbose();
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'petconnect'; 
+const JWT_SECRET = 'petconnect';
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
@@ -23,7 +23,7 @@ let db = new sqlite3.Database('./petconnect.db', sqlite3.OPEN_READWRITE | sqlite
 const cors = require('cors')
 app.use(cors())
 
-app.all('/', function(req, res, next) {
+app.all('/', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next()
@@ -39,9 +39,9 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const sql = 'INSERT INTO users (username, password, email, phoneNumber, firstName, lastName, biography, accountStatus, role) VALUES (?,?,?,?,?,?,?,?,?)';
-    db.run(sql, [username, hashedPassword, email, phoneNumber, firstName, lastName, biography, accountStatus, userRole], function(err) {
+    db.run(sql, [username, hashedPassword, email, phoneNumber, firstName, lastName, biography, accountStatus, userRole], function (err) {
       if (err) {
-        res.status(400).json({"error": err.message});
+        res.status(400).json({ "error": err.message });
         return;
       }
       res.json({
@@ -51,7 +51,7 @@ app.post('/register', async (req, res) => {
     });
   } catch (error) {
     console.error('Registration error:', error);
-    res.status(500).json({"error": "An error occurred during registration"});
+    res.status(500).json({ "error": "An error occurred during registration" });
   }
 });
 
@@ -85,18 +85,18 @@ app.post('/login', (req, res) => {
         // Passwords match, create a token with the actual user data
         const userToken = jwt.sign({
           user: {
-            id: user.id, 
-            username: user.username, 
-            email: user.email, 
-            phoneNumber: user.phoneNumber, 
-            firstName: user.firstName, 
-            lastName: user.lastName, 
-            biography: user.biography, 
-            accountStatus: user.accountStatus, 
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            biography: user.biography,
+            accountStatus: user.accountStatus,
             role: user.role
           }
         }, JWT_SECRET, { expiresIn: '1h' }); // Token expires in 1 hour
-        
+
         // Send the token as JSON
         res.json({ token: userToken });
       } else {
@@ -143,7 +143,7 @@ app.get('/pets/:userid', (req, res) => {
   db.all(sql, [userid], (err, rows) => {
     if (err) {
       console.error('Error:', err.message);
-      return res.status(500).json({error: err.message});
+      return res.status(500).json({ error: err.message });
     }
     res.json(rows);
   });
@@ -152,14 +152,14 @@ app.get('/pets/:userid', (req, res) => {
 
 // ADD PET ROUTE
 
-app.post('/addpet', (req, res)=> {
+app.post('/addpet', (req, res) => {
   try {
-    const {userid, petName, type, dob, breed, weight, diet, special, emergencyNumber} = req.body
+    const { userid, petName, type, dob, breed, weight, diet, special, emergencyNumber } = req.body
     const sql = `
     INSERT INTO pets (ownerId, name, type, dob, breed, weightKg, dietaryPreferences, specialRequirements, EmergencyContactInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    db.run(sql, [userid, petName, type, dob, breed, weight, diet, special, emergencyNumber], function(err){
-      if (err){
-        res.status(400).json({"error": err.message});
+    db.run(sql, [userid, petName, type, dob, breed, weight, diet, special, emergencyNumber], function (err) {
+      if (err) {
+        res.status(400).json({ "error": err.message });
         return;
       }
       res.json({
@@ -169,7 +169,7 @@ app.post('/addpet', (req, res)=> {
     })
   } catch (error) {
     console.error('error:', error)
-    res.status(500).json({'error': 'an error occured when trying to add pet'})
+    res.status(500).json({ 'error': 'an error occured when trying to add pet' })
   }
 })
 
@@ -187,7 +187,7 @@ app.get('/bookings/:userid', (req, res) => {
   db.all(sql, [userid], (err, rows) => {
     if (err) {
       console.error('Error:', err.message);
-      return res.status(500).json({error: err.message});
+      return res.status(500).json({ error: err.message });
     }
     res.json(rows);
   });
@@ -206,7 +206,7 @@ app.get('/review/:userid', (req, res) => {
   db.all(sql, [userid], (err, rows) => {
     if (err) {
       console.error('Error:', err.message);
-      return res.status(500).json({error: err.message});
+      return res.status(500).json({ error: err.message });
     }
     res.json(rows);
   });
@@ -217,16 +217,16 @@ app.listen(port, () => {
 
 // REQUEST BOOKING ROUTE
 
-app.post('/BookMinder', (req, res)=> {
+app.post('/BookMinder', (req, res) => {
   try {
-    const {ownerId, minderId, petId, date, time, duration} = req.body
+    const { ownerId, minderId, petId, date, time, duration } = req.body
     let dateTime = `${date} ${time}`;
     const status = "pending";
 
     const sql = `INSERT INTO bookings (ownerId, minderId, petId, dateTime, durationMins, status) VALUES (?, ?, ?, ?, ?, ?)`
-    db.run(sql, [ownerId, minderId, petId, dateTime, duration, status], function(err){
-      if (err){
-        res.status(400).json({"error": err.message});
+    db.run(sql, [ownerId, minderId, petId, dateTime, duration, status], function (err) {
+      if (err) {
+        res.status(400).json({ "error": err.message });
         return;
       }
       res.json({
@@ -235,14 +235,14 @@ app.post('/BookMinder', (req, res)=> {
     })
   } catch (error) {
     console.error('error:', error)
-    res.status(500).json({'error': 'an error occured when trying to request booking'})
+    res.status(500).json({ 'error': 'an error occured when trying to request booking' })
   }
 })
 
 // VIEW PROFILE ROUTE
 
 app.get('/ViewProfile/:userId', (req, res) => {
-  const { userId } = req.params; 
+  const { userId } = req.params;
 
   // the sql statement
   const sql = `
@@ -259,9 +259,33 @@ app.get('/ViewProfile/:userId', (req, res) => {
     }
 
     if (rows.length > 0) {
-      res.json(rows[0]); 
+      res.json(rows[0]);
     } else {
       res.status(404).json({ error: "User not found" });
     }
   });
 });
+
+
+// UPDATE SERVICES ROUTE 
+
+app.post('/minderStatus', (req, res) => {
+  try {
+    const { minderId, city, dog, cat, rabbit, exotic } = req.body
+    const active ='true';
+
+    const sql = `INSERT INTO minderStatus (minderId, active, city, dog, cat, rabbit, exotic) VALUES (?, ?, ?, ?, ?, ?, ?)`
+    db.run(sql, [minderId, active, city, dog, cat, rabbit, exotic], function (err) {
+      if (err) {
+        res.status(400).json({ "error": err.message });
+        return;
+      }
+      res.json({
+        "message": "success",
+      });
+    })
+  } catch (error) {
+    console.error('error:', error)
+    res.status(500).json({ 'error': 'an error occured when trying edit services' })
+  }
+})

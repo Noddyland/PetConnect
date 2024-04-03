@@ -1,0 +1,32 @@
+.profile-services-container {
+    display: flex;
+    margin: auto; /* Center horizontally */
+    margin-top: 1rem;
+    width: 80%;
+    border: 1px solid #A70909;
+    background-color: white;
+}
+
+.services-table {
+    border-collapse: collapse;
+    width: 60%; /* Adjust the width as needed */
+}
+
+.services-table th {
+    color: white;
+    background-color: #A70909;
+    padding: 10px;
+    text-align: center;
+}
+
+.services-table td {
+    text-align: center;
+    padding: 5px;
+}
+
+.calendar {
+    width: 40%; /* Adjust the width as needed */
+    padding: 10px;
+    border-left: 1px solid #A70909; /* Add a border to separate the table and calendar */
+}
+

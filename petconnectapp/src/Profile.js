@@ -6,6 +6,7 @@ import './Profile.css';
 import ViewPets from './ViewPets';
 import Bookings from './bookings';
 import DisplayReviews from './DisplayReviews';
+import MyServices from './myservices';
 
 function DisplayDetails(){
     if(localStorage.getItem('userObject') != null){
@@ -38,6 +39,7 @@ function DisplayDetails(){
                 {userDetails}
                 {reviews}
                 <div><Bookings/></div>
+                <div><MyServices/></div>
             </div>;
         }
     }
