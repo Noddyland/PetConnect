@@ -1,0 +1,72 @@
+.review-minder {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #A70909;
+    color: #fff;
+    border-radius: 8px;
+  }
+  
+  .review-minder h1 {
+    color: #fff;
+    text-align: center;
+  }
+  
+  .review-minder form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .review-minder label {
+    margin-top: 1rem;
+  }
+  
+  .review-minder select,
+  .review-minder textarea,
+  .review-minder button {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .review-minder select,
+  .review-minder textarea {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .review-minder button {
+    background-color: #fff;
+    color: #A70909;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  .star-rating {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+  
+  .star {
+    font-size: 2rem;
+    padding: 0 5px;
+    cursor: pointer;
+  }
+  
+  .star.on {
+    color: yellow;
+  }
+  
+  .star.off {
+    color: black;
+  }
+  
+  .star-rating button {
+    background: none;
+    border: none;
+    outline: none;
+  }
+  
