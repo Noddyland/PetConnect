@@ -16,6 +16,8 @@ npm install react-router
 
 npm install jwt-decode
 
+npm install react-calendar
+
 npm start (to start the frontend)
 
 

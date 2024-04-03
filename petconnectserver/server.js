@@ -315,3 +315,19 @@ app.post('/minderStatus', (req, res) => {
   }
 });
 
+// GET STATUS ROUTE 
+app.get('/minderStatus/:userid', (req, res) => {
+  const { userid } = req.params;
+  const sql = `
+    SELECT *
+    FROM minderStatus 
+    WHERE minderId = ?`;
+
+  db.all(sql, [userid], (err, rows) => {
+    if (err) {
+      console.error('Error:', err.message);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
+});
