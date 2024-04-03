@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 
-
-
 const MyServices = () => {
     const [minderStatus, setMinderStatus] = useState([]);
 
@@ -55,13 +53,13 @@ const MyServices = () => {
                                     <td>Location: {status.city}</td>
                                 </tr>
                                 <tr>
-                                    <td>Pets: {status.dog}, {status.cat}, {status.rabbit}, {status.exotic}</td>
+                                    <td>Pets: {status.dog} {status.cat} {status.rabbit} {status.exotic}</td>
                                 </tr>
                                 <tr>
-                                    <td>Services: </td>
+                                    <td>Services: {status.dogWalking} {status.petSitting} {status.grooming}</td>
                                 </tr>
                                 <tr>
-                                    <td><Link to="/EditServices">Edit</Link></td>
+                                    <td><Link to="/EditServices">Update</Link></td>
                                 </tr>
                             </>
                         ))}

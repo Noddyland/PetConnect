@@ -270,7 +270,7 @@ app.get('/ViewProfile/:userId', (req, res) => {
 // UPDATE SERVICES ROUTE 
 app.post('/minderStatus', (req, res) => {
   try {
-    const { minderId, city, dog, cat, rabbit, exotic } = req.body;
+    const { minderId, city, dog, cat, rabbit, exotic, dogWalking, petSitting, grooming } = req.body;
     const active = 'true';
 
     // Check if a record with the given minderId already exists
@@ -285,9 +285,9 @@ app.post('/minderStatus', (req, res) => {
       if (row) {
         const updateSql = `
           UPDATE minderStatus 
-          SET active = ?, city = ?, dog = ?, cat = ?, rabbit = ?, exotic = ? 
+          SET active = ?, city = ?, dog = ?, cat = ?, rabbit = ?, exotic = ?, dogWalking = ?, petSitting = ?, grooming = ?
           WHERE minderId = ?`;
-        db.run(updateSql, [active, city, dog, cat, rabbit, exotic, minderId], function (err) {
+        db.run(updateSql, [active, city, dog, cat, rabbit, exotic, dogWalking, petSitting, grooming, minderId], function (err) {
           if (err) {
             res.status(400).json({ "error": err.message });
             return;
@@ -298,9 +298,9 @@ app.post('/minderStatus', (req, res) => {
 
         // If no record exists, insert a new one
         const insertSql = `
-          INSERT INTO minderStatus (minderId, active, city, dog, cat, rabbit, exotic) 
+          INSERT INTO minderStatus (minderId, active, city, dog, cat, rabbit, exotic, dogWalking, petSitting, grooming) 
           VALUES (?, ?, ?, ?, ?, ?, ?)`;
-        db.run(insertSql, [minderId, active, city, dog, cat, rabbit, exotic], function (err) {
+        db.run(insertSql, [minderId, active, city, dog, cat, rabbit, exotic, dogWalking, petSitting, grooming], function (err) {
           if (err) {
             res.status(400).json({ "error": err.message });
             return;
@@ -315,11 +315,20 @@ app.post('/minderStatus', (req, res) => {
   }
 });
 
-// GET STATUS ROUTE 
+
+//GET STATUS ROUTE
 app.get('/minderStatus/:userid', (req, res) => {
   const { userid } = req.params;
   const sql = `
-    SELECT *
+    SELECT 
+      city,
+      CASE WHEN dog = 'true' THEN 'Dog' ELSE NULL END AS dog,
+      CASE WHEN cat = 'true' THEN 'Cat' ELSE NULL END AS cat,
+      CASE WHEN rabbit = 'true' THEN 'Rabbit' ELSE NULL END AS rabbit,
+      CASE WHEN exotic = 'true' THEN 'Exotic' ELSE NULL END AS exotic,
+      CASE WHEN dogWalking = 'true' THEN 'Dog Walking' ELSE NULL END AS dogWalking,
+      CASE WHEN petSitting = 'true' THEN 'Pet Sitting' ELSE NULL END AS petSitting, 
+      CASE WHEN grooming = 'true' THEN 'Grooming' ELSE NULL END AS grooming
     FROM minderStatus 
     WHERE minderId = ?`;
 
@@ -328,6 +337,17 @@ app.get('/minderStatus/:userid', (req, res) => {
       console.error('Error:', err.message);
       return res.status(500).json({ error: err.message });
     }
-    res.json(rows);
+    // Filter out NULL values
+    const filteredRows = rows.map(row => {
+      const filteredRow = {};
+      for (const [key, value] of Object.entries(row)) {
+        if (value !== null) {
+          filteredRow[key] = value;
+        }
+      }
+      return filteredRow;
+    });
+
+    res.json(filteredRows);
   });
 });

@@ -5,25 +5,32 @@ import './editservices.css'
 const EditServices = () => {
     const [location, setLocation] = useState('');
     const [selectedPets, setSelectedPets] = useState([]);
-    const { minderObject } = location.state || {}; 
+    const [selectedServices, setSelectedServices] = useState([]);
 
-
-
-    const handleCheckboxChange = (e) => {
+    const handleCheckboxChange = (e, type) => {
         const { value, checked } = e.target;
-        if (checked) {
-            setSelectedPets([...selectedPets, value]);
-        } else {
-            setSelectedPets(selectedPets.filter(pet => pet !== value));
+        if (type === 'pets') {
+            if (checked) {
+                setSelectedPets([...selectedPets, value]);
+            } else {
+                setSelectedPets(selectedPets.filter(pet => pet !== value));
+            }
+        } else if (type === 'services') {
+            if (checked) {
+                setSelectedServices([...selectedServices, value]);
+            } else {
+                setSelectedServices(selectedServices.filter(service => service !== value));
+            }
         }
     };
-  
+
+
     const handleLocationChange = (e) => {
         setLocation(e.target.value);
     };
 
     const backendUrl = 'http://localhost:5000';
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const userObject = JSON.parse(localStorage.getItem('userObject'));
@@ -32,9 +39,12 @@ const EditServices = () => {
             minderId: userObject.user.id,
             city: location,
             dog: selectedPets.includes('dog') ? 'true' : 'false',
-            cat: !!selectedPets.includes('cat')? 'true' : 'false',
-            rabbit: !!selectedPets.includes('rabbit')? 'true' : 'false',
-            exotic: !!selectedPets.includes('exotic') ? 'true' : 'false'
+            cat: selectedPets.includes('cat') ? 'true' : 'false',
+            rabbit: selectedPets.includes('rabbit') ? 'true' : 'false',
+            exotic: selectedPets.includes('exotic') ? 'true' : 'false',
+            dogWalking: selectedServices.includes('dogWalking') ? 'true' : 'false',
+            petSitting: selectedServices.includes('petSitting') ? 'true' : 'false',
+            grooming: selectedServices.includes('grooming') ? 'true' : 'false'
         };
 
         try {
@@ -48,16 +58,16 @@ const EditServices = () => {
 
             if (response.ok) {
                 console.log("Updated successfully!");
-                document.getElementById('bookingConfirmation').innerHTML = `Request sent!`;
+                document.getElementById('updateConfirmation').innerHTML = `Updated successfully!`;
             } else {
-                console.error("Failed to book:", await response.json());
+                console.error("Failed to update.", await response.json());
             }
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
-   
+
     return (
         <form className="edit-services" onSubmit={handleSubmit}>
             <div>
@@ -72,7 +82,7 @@ const EditServices = () => {
                             type="checkbox"
                             value="dog"
                             checked={selectedPets.includes('dog')}
-                            onChange={handleCheckboxChange}
+                            onChange={(e) => handleCheckboxChange(e, 'pets')}
                         />
                         Dog
                     </label>
@@ -81,7 +91,7 @@ const EditServices = () => {
                             type="checkbox"
                             value="cat"
                             checked={selectedPets.includes('cat')}
-                            onChange={handleCheckboxChange}
+                            onChange={(e) => handleCheckboxChange(e, 'pets')}
                         />
                         Cat
                     </label>
@@ -90,7 +100,7 @@ const EditServices = () => {
                             type="checkbox"
                             value="rabbit"
                             checked={selectedPets.includes('rabbit')}
-                            onChange={handleCheckboxChange}
+                            onChange={(e) => handleCheckboxChange(e, 'pets')}
                         />
                         Rabbit
                     </label>
@@ -99,16 +109,48 @@ const EditServices = () => {
                             type="checkbox"
                             value="exotic"
                             checked={selectedPets.includes('exotic')}
-                            onChange={handleCheckboxChange}
+                            onChange={(e) => handleCheckboxChange(e, 'pets')}
                         />
                         Exotic
+                    </label>
+                </div>
+                <div>
+                    <label htmlFor="name">Services</label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value="dogWalking"
+                            checked={selectedServices.includes('dogWalking')}
+                            onChange={(e) => handleCheckboxChange(e, 'services')}
+                        />
+                        Dog Walking
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value="petSitting"
+                            checked={selectedServices.includes('petSitting')}
+                            onChange={(e) => handleCheckboxChange(e, 'services')}
+                        />
+                        Pet Sitting
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value="grooming"
+                            checked={selectedServices.includes('grooming')}
+                            onChange={(e) => handleCheckboxChange(e, 'services')}
+                        />
+                        Grooming
                     </label>
                 </div>
             </div>
             <div>
                 <input type="submit" value="Submit" />
             </div>
+            <p id="updateConfirmation"></p>
         </form >
+
     );
 };
 
