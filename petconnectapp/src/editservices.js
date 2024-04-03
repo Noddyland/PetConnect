@@ -4,13 +4,11 @@ import './editservices.css'
 
 const EditServices = () => {
     const [location, setLocation] = useState('');
-    // State variable to store selected pets
     const [selectedPets, setSelectedPets] = useState([]);
     const { minderObject } = location.state || {}; 
 
 
 
-    // Function to handle checkbox change
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
         if (checked) {
@@ -19,13 +17,13 @@ const EditServices = () => {
             setSelectedPets(selectedPets.filter(pet => pet !== value));
         }
     };
-    // Function to handle location input change
+  
     const handleLocationChange = (e) => {
         setLocation(e.target.value);
     };
 
     const backendUrl = 'http://localhost:5000';
-    // Function to handle form submission
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         const userObject = JSON.parse(localStorage.getItem('userObject'));
@@ -59,7 +57,7 @@ const EditServices = () => {
         }
     };
 
-    // Form logic here
+   
     return (
         <form className="edit-services" onSubmit={handleSubmit}>
             <div>

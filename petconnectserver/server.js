@@ -268,24 +268,50 @@ app.get('/ViewProfile/:userId', (req, res) => {
 
 
 // UPDATE SERVICES ROUTE 
-
 app.post('/minderStatus', (req, res) => {
   try {
-    const { minderId, city, dog, cat, rabbit, exotic } = req.body
-    const active ='true';
+    const { minderId, city, dog, cat, rabbit, exotic } = req.body;
+    const active = 'true';
 
-    const sql = `INSERT INTO minderStatus (minderId, active, city, dog, cat, rabbit, exotic) VALUES (?, ?, ?, ?, ?, ?, ?)`
-    db.run(sql, [minderId, active, city, dog, cat, rabbit, exotic], function (err) {
+    // Check if a record with the given minderId already exists
+    const checkSql = `SELECT * FROM minderStatus WHERE minderId = ?`;
+    db.get(checkSql, [minderId], (err, row) => {
       if (err) {
-        res.status(400).json({ "error": err.message });
+        res.status(500).json({ "error": err.message });
         return;
       }
-      res.json({
-        "message": "success",
-      });
-    })
+
+      // If a record with the given minderId already exists, update it
+      if (row) {
+        const updateSql = `
+          UPDATE minderStatus 
+          SET active = ?, city = ?, dog = ?, cat = ?, rabbit = ?, exotic = ? 
+          WHERE minderId = ?`;
+        db.run(updateSql, [active, city, dog, cat, rabbit, exotic, minderId], function (err) {
+          if (err) {
+            res.status(400).json({ "error": err.message });
+            return;
+          }
+          res.json({ "message": "success" });
+        });
+      } else {
+
+        // If no record exists, insert a new one
+        const insertSql = `
+          INSERT INTO minderStatus (minderId, active, city, dog, cat, rabbit, exotic) 
+          VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        db.run(insertSql, [minderId, active, city, dog, cat, rabbit, exotic], function (err) {
+          if (err) {
+            res.status(400).json({ "error": err.message });
+            return;
+          }
+          res.json({ "message": "success" });
+        });
+      }
+    });
   } catch (error) {
     console.error('error:', error)
-    res.status(500).json({ 'error': 'an error occured when trying edit services' })
+    res.status(500).json({ 'error': 'an error occurred when updating services.' })
   }
-})
+});
+
