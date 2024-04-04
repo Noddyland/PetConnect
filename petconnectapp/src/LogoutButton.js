@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
 function LogoutButton(){
-    
+    const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('userObject'); // Removes the token from localStorage
+        navigate('/');
         window.location.reload();
     }
     if (localStorage.getItem('userObject') != null){
