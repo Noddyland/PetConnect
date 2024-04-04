@@ -10,6 +10,7 @@ import Register from './Register';
 import Profile from './Profile';
 import SearchResults from './SearchResults';
 import BookMinder from './BookMinder';
+import ReviewMinder from './ReviewMinder';
 import Pets from './Pets';
 import ViewProfile from './ViewProfile';
 import EditServices from './editservices';
@@ -37,6 +38,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/Register" element={<Register></Register>}/>
           <Route path="/BookMinder" element={<BookMinder />}/>
+          <Route path="/ReviewMinder" element={<ReviewMinder />}/>
           <Route path="/Pets" element={<Pets />} />
           <Route path="/ViewProfile" element={<ViewProfile />} />
           <Route path="/EditServices" element={<EditServices/>} />
