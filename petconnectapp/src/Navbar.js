@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import petConnectLogo from './petconnectlogo.png';
+import petConnectLogo from './images/petconnectlogo.png';
 import Login from './Login';
 import LogoutButton from './LogoutButton';
 
 const ShowProfile = () => {
     if (localStorage.getItem('userObject') != null){
-        return (
+        const userObjectString = localStorage.getItem('userObject');
+        const userObject = JSON.parse(userObjectString);
+        if (userObject.user.role == "owner"){
+            return(
             <Link to="/profile">Profile</Link>
-        );
+            )
+        }
     }
     return (null);
 }

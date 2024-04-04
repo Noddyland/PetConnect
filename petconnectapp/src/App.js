@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import './styles/App.css';
 import Navbar from './Navbar';
-import './Navbar.css'; // Import the CSS file here
+import './styles/Navbar.css'; // Import the CSS file here
 import Home from './Home'; // Your component for the Home page
 import Login from './Login'; // Your component for the About page
 import Services from './Services'; // Your component for the Services page

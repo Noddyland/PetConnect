@@ -1,6 +1,6 @@
 // FormComponent.js
 import React, { useState } from 'react';
-import './editservices.css'
+import './styles/editservices.css'
 
 const EditServices = () => {
     const [location, setLocation] = useState('');

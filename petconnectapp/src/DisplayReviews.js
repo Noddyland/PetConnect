@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Review.css'
+import './styles/Review.css'
 const ViewReviews = () => {
     const [reviews, setReviews] = useState([]);
     const [overall_rating, setrating] = useState(0.00)

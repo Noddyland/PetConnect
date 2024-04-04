@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ReviewMinder.css';
+import './styles/ReviewMinder.css';
 
 const ReviewMinder = () => {
   // Define the backend URL here

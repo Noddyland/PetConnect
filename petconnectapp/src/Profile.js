@@ -1,32 +1,23 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Pets from './Pets';
-import './Profile.css';
+import './styles/Profile.css';
 
 import ViewPets from './ViewPets';
 import Bookings from './bookings';
 import DisplayReviews from './DisplayReviews';
 import MyServices from './myservices';
+import GetReports from './GetReports';
 
 function DisplayDetails(){
     if(localStorage.getItem('userObject') != null){
         const userObjectString = localStorage.getItem('userObject');
         const userObject = JSON.parse(userObjectString);
 
-        // Common elements
-        const userDetails = (
-            <div>
-                {userObject.user.firstName} {userObject.user.lastName}<br/>
-                {userObject.user.biography}<br/>
-                {userObject.user.role}
-            </div>
-        );
-
         const reviews = <div><DisplayReviews/></div>;
 
         if(userObject.user.role === 'owner'){
             return <div>
-                {userDetails}
                 {reviews}
                 <div><ViewPets /></div>
                 <div>
@@ -36,23 +27,43 @@ function DisplayDetails(){
         }
         else if (userObject.user.role === 'minder'){
             return <div>
-                {userDetails}
                 {reviews}
                 <div><Bookings/></div>
                 <div><MyServices/></div>
             </div>;
         }
+
+        else if (userObject.user.role === 'moderator'){
+            return <div>
+                <GetReports />
+            </div>
+        }
     }
     return "";
 }
 
+function ProfileHeader(){
+    const userObjectString = localStorage.getItem('userObject');
+    const userObject = JSON.parse(userObjectString);
+    return <h1><u>{userObject.user.firstName} {userObject.user.lastName} - <GetRole role = {userObject.user.role} /></u></h1>
+}
+
+function GetRole({role}){ 
+    if(role === "owner"){
+        return "Pet Owner";
+    } else if(role === "minder"){
+        return "Pet Minder";
+    } else{
+        return "Moderator";
+    }
+}
 
 function Profile() {
 
     return (
         <div>
-            <h1>Profile</h1>
-            <div><DisplayDetails /></div>
+            <ProfileHeader />
+            <DisplayDetails />
         </div>
     );
 };

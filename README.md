@@ -36,3 +36,5 @@ npm install bcrypt jsonwebtoken
 
 npm run dev (to start the backend)
 
+
+moderator login: dalewilson@gmail.com gtab

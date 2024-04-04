@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Pets.css';
+import './styles/Pets.css';
 
 
 const ViewPets = () => {

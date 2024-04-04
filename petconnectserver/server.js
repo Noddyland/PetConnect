@@ -373,3 +373,31 @@ app.post('/submitReview', async (req, res) => {
     res.status(500).json({ "error": "An error occurred while submitting the review" });
   }
 });
+
+// GET REPORTS ROUTE
+app.get('/GetReports', (req, res) => {
+  const sql = `
+      SELECT 
+          r.reportId, 
+          r.reportDetails, 
+          au.id AS authorId,
+          au.firstName AS authorFirstName, 
+          au.lastName AS authorLastName, 
+          su.id AS subjectId,
+          su.firstName AS subjectFirstName, 
+          su.lastName AS subjectLastName 
+      FROM reports r
+      JOIN users au ON r.authorId = au.id
+      JOIN users su ON r.subjectId = su.id
+  `;
+
+  db.all(sql, [], (err, rows) => {
+      if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+      }
+      res.json({
+          reports: rows
+      });
+  });
+});

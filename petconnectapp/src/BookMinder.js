@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './BookMinder.css'; // Include your stylesheet
+import './styles/BookMinder.css'; // Include your stylesheet
 
 const BookMinder = () => {
     const location = useLocation();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './bookings.css';
+import './styles/bookings.css';
 const ViewBookings = () => {
     const [bookings, setBookings] = useState([]);
     

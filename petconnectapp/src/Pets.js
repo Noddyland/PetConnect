@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './Pets.css';
+import './styles/Pets.css';
 import ViewPets from './ViewPets';
 
 const AddPets = () => {
