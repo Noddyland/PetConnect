@@ -115,6 +115,9 @@ const BookMinder = () => {
             <div className="profile-link">
                 <p>View <Link to={`/ViewProfile?userId=${minderObject.id}`} style={{ color: '#A70909' }}>{minderObject.firstName}'s profile</Link></p>
             </div>
+            <div className="profile-link">
+                <p>Review <Link to={`/ReviewMinder`} style={{ color: '#A70909' }}>{minderObject.firstName}'s profile</Link></p>
+            </div>
             <button className="request-to-book-button" onClick={handleSubmit}>Request to Book</button>
             <p id = "bookingConfirmation" style={{ color: 'green' }}></p>
         </div>

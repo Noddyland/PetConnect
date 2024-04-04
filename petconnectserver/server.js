@@ -351,3 +351,25 @@ app.get('/minderStatus/:userid', (req, res) => {
     res.json(filteredRows);
   });
 });
+
+// POST REVIEW ROUTE
+app.post('/submitReview', async (req, res) => {
+  try {
+    const { minderId, authorId, reviewText, rating } = req.body;
+    
+    const sql = `INSERT INTO reviews (minderId, authorId, text, rating) VALUES (?, ?, ?, ?)`;
+    db.run(sql, [minderId, authorId, reviewText, rating], function (err) {
+      if (err) {
+        res.status(400).json({ "error": err.message });
+        return;
+      }
+      res.json({
+        "message": "Review submitted successfully",
+        "data": { id: this.lastID }
+      });
+    });
+  } catch (error) {
+    console.error('Error submitting review:', error);
+    res.status(500).json({ "error": "An error occurred while submitting the review" });
+  }
+});
