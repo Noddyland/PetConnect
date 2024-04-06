@@ -12,3 +12,7 @@
 ul{
     list-style-type: none;
 }
+
+#accept-button, #deny-button{
+    margin: 0.5rem;
+}

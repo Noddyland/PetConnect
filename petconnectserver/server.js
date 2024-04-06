@@ -180,9 +180,9 @@ app.get('/bookings/:userid', (req, res) => {
   const sql = `
     SELECT *
     FROM bookings AS b
-    LEFT OUTER JOIN  pets AS p ON b.petId = p.petId
+    LEFT OUTER JOIN pets AS p ON b.petId = p.petId
     LEFT OUTER JOIN users AS u ON b.ownerId = u.id
-    WHERE b.minderID = ?`;
+    WHERE b.minderID = ? AND b.status != 'denied';`;
 
   db.all(sql, [userid], (err, rows) => {
     if (err) {
@@ -192,6 +192,7 @@ app.get('/bookings/:userid', (req, res) => {
     res.json(rows);
   });
 });
+
 
 // GET REVIEWS ROUTE
 
@@ -356,7 +357,7 @@ app.get('/minderStatus/:userid', (req, res) => {
 app.post('/submitReview', async (req, res) => {
   try {
     const { minderId, authorId, reviewText, rating } = req.body;
-    
+
     const sql = `INSERT INTO reviews (minderId, authorId, text, rating) VALUES (?, ?, ?, ?)`;
     db.run(sql, [minderId, authorId, reviewText, rating], function (err) {
       if (err) {
@@ -392,12 +393,35 @@ app.get('/GetReports', (req, res) => {
   `;
 
   db.all(sql, [], (err, rows) => {
-      if (err) {
-          res.status(500).json({ error: err.message });
-          return;
-      }
-      res.json({
-          reports: rows
-      });
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({
+      reports: rows
+    });
   });
 });
+
+//ACCEPT/DENY BOOKING ROUTE
+app.post('/bookings', (req, res) => {
+  try {
+    const { bookingId, minderId, status } = req.body;
+    const updateSql = `
+      UPDATE bookings 
+      SET status = ?
+      WHERE bookingId = ? AND minderId = ?`;
+    db.run(updateSql, [status, bookingId, minderId], function (err) {
+      if (err) {
+        res.status(400).json({ "error": err.message });
+        return;
+      }
+      res.json({ "message": "success" });
+    });
+  } catch (error) {
+    console.error('error:', error);
+    res.status(500).json({ 'error': 'an error occurred when updating booking.' });
+  }
+});
+
+
