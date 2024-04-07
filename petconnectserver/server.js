@@ -476,3 +476,48 @@ app.get('/GetPendingMinders', (req, res) => {
     });
   });
 });
+
+// ACCEPT OR DENY MINDER ROUTE
+
+app.post('/UserDecision/:id', (req, res) => {
+  const { id } = req.params; 
+  const { decision } = req.body; 
+
+  if (!['approved', 'pending', 'rejected', 'banned'].includes(decision)) {
+      res.status(400).json({ error: 'Invalid decision value' });
+      return;
+  }
+
+  const sql = `UPDATE users SET accountStatus = ? WHERE id = ?`;
+
+  db.run(sql, [decision, id], function(err) {
+      if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+      }
+      if (this.changes === 0) {
+          res.status(404).json({ error: "User not found" });
+      } else {
+          res.json({ message: 'User status updated successfully', changes: this.changes });
+      }
+  });
+});
+
+// GET ALL USERS (MODERATOR)
+
+app.get('/GetUsers', (req, res) => {
+  const sql = `
+      SELECT id, username, firstName, lastName, email, accountStatus, role 
+      FROM users
+  `;
+
+  db.all(sql, [], (err, rows) => {
+      if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+      }
+      res.json({
+          users: rows
+      });
+  });
+});
