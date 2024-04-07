@@ -71,6 +71,9 @@ button:focus {
     list-style: none;
     padding: 0;
 }
+.my-pets-list button {
+    margin-right: 50px; /* Adjust the margin between the button and the pet details */
+}
 
 .pets-list li,
 .my-pets-list li {
