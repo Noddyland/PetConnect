@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './styles/GetReports.css';
 
 const GetReports = () => {
-    const [reports, setReports] = useState([]); // Changed from reviews to reports
+    const [reports, setReports] = useState([]);
 
     useEffect(() => {
         const fetchReports = async () => {
@@ -38,38 +39,38 @@ const GetReports = () => {
 
     if (reports.length > 0) {
         return (
-            <div>
-                <h3 style={{ color: '#A70909' }}>
-                    Reports
-                </h3>
-                <table style={{ width: '100%', backgroundColor: 'white', borderCollapse: 'collapse' }}>
-                    <thead>
-                        <tr>
-                            <th style={{ color: '#A70909', borderBottom: '2px solid #A70909' }}>Author</th>
-                            <th style={{ color: '#A70909', borderBottom: '2px solid #A70909' }}>Subject</th>
-                            <th style={{ color: '#A70909', borderBottom: '2px solid #A70909' }}>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {reports.map((report) => (
-                            <tr key={report.reportId}>
-                                <td>
-                                    <Link to={`/ViewProfile?userId=${report.authorId}`} style={{ color: '#A70909' }}>
-                                        {report.authorFirstName} {report.authorLastName}
-                                    </Link>
-                                </td>
-                                <td>
-                                    <Link to={`/ViewProfile?userId=${report.subjectId}`} style={{ color: '#A70909' }}>
-                                        {report.subjectFirstName} {report.subjectLastName}
-                                    </Link>
-                                </td>
-                                <td>{report.reportDetails}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        );
+                <div className="reports-container">
+        <h3 className="reports-header">
+            <u>Reports</u>
+        </h3>
+        <table className="minders-table">
+            <thead>
+                <tr>
+                    <th>Author</th>
+                    <th>Subject</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {reports.map((report) => (
+                    <tr key={report.reportId}>
+                        <td>
+                            <Link to={`/ViewProfile?userId=${report.authorId}`} className="report-link">
+                                {report.authorFirstName} {report.authorLastName}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={`/ViewProfile?userId=${report.subjectId}`} className="report-link">
+                                {report.subjectFirstName} {report.subjectLastName}
+                            </Link>
+                        </td>
+                        <td>{report.reportDetails}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    </div>
+    );
     } else {
         return <div>No reports found.</div>;
     }

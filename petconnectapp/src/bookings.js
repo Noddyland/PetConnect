@@ -4,6 +4,29 @@ const ViewBookings = () => {
     const [bookings, setBookings] = useState([]);
     const [buttonClicked, setButtonClicked] = useState({});
 
+    function formatDate(dateString) { // formats the date so it looks a bit nicer
+        const date = new Date(dateString);
+      
+        const dateOptions = { 
+          weekday: 'short', 
+          day: 'numeric', 
+          month: 'long', 
+          year: 'numeric',
+          timeZone: 'UTC' 
+        };
+      
+        const formattedDate = new Intl.DateTimeFormat('en-GB', dateOptions).format(date);
+      
+        const timePart = dateString.split(' ')[1];
+      
+        const day = date.getUTCDate();
+        const suffix = ['th', 'st', 'nd', 'rd'][(day % 10 > 3) ? 0 : (((day % 100) - (day % 10) != 10) ? day % 10 : 0)];
+      
+        const finalDate = formattedDate.replace(day, `${day}${suffix}`) + ', ' + timePart;
+      
+        return finalDate;
+      }
+
     useEffect(() => {
         const fetchBookings = async () => {
             const userObjectString = localStorage.getItem('userObject');
@@ -21,7 +44,6 @@ const ViewBookings = () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        // track button visibility based on booking status
                         const buttonVisibility = data.reduce((acc, booking) => {
                             acc[booking.bookingId] = booking.status !== 'accepted';
                             return acc;
@@ -71,7 +93,6 @@ const ViewBookings = () => {
                 if (bookingAcceptedElement) {
                     bookingAcceptedElement.innerHTML = `Booking accepted!`;
                 }
-                //remove booking from buttonClicked state
                 setButtonClicked((prevState) => {
                     const updatedState = { ...prevState };
                     delete updatedState[bookingId];
@@ -131,9 +152,8 @@ const ViewBookings = () => {
                 <ul>
                     {bookings.map((booking) => (
                         <li key={booking.bookingId} className='bookings_'>
-                            <strong>booking user:</strong> {booking.username} <strong>pet name:</strong> {booking.name} <strong>pet type:</strong> {booking.type} <strong>date:</strong> {booking.dateTime} <strong>duration:</strong> {booking.durationMins} mins
+                            <strong>Pet Minder:</strong> {booking.firstName} {booking.lastName} <strong>Pet:</strong> {booking.name} <strong>Type:</strong> {booking.type} <br/><strong>Date:</strong> {formatDate(booking.dateTime)} <strong>Duration:</strong> {booking.durationMins} mins
                             <div>
-                                {/* render the buttons only if buttonClicked[booking.bookingId] is true */}
                                 {buttonClicked[booking.bookingId] && (
                                     <>
                                         <button id="accept-button" onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
