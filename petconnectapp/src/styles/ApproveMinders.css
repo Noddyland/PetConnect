@@ -39,3 +39,56 @@
     padding: 20px;
     text-align: center;
 }
+
+/* Style for the container holding all tables */
+.tables-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start; /* Align items at the start of the container */
+    flex-wrap: wrap; /* Wrap items to next line on small screens */
+    gap: 20px; /* Creates space between flex items */
+    padding: 20px; /* Padding around the entire container */
+}
+
+/* Style for each table container to add margins */
+.table-wrapper {
+    flex: 1; /* Each table takes equal width */
+    min-width: 320px; /* Minimum width for each table */
+    margin: 10px; /* Space between tables */
+}
+
+/* Existing styles, add this if not already in your CSS file */
+.minders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.minders-table th, .minders-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #A70909;
+}
+
+.minders-table th {
+    background-color: #A70909;
+    color: white;
+}
+
+.minders-table td {
+    background-color: white;
+    color: black;
+}
+
+.minders-table button {
+    background-color: #A70909;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.minders-table button:hover {
+    background-color: #930606;
+}

@@ -30,45 +30,26 @@ const ApproveMinders = () => {
         }
     };
 
-    const handleApprove = async (id) => {
+    const handleDecision = async (id, decision) => {
         try {
-            const response = await fetch(`http://localhost:5000/approveMinder/${id}`, { 
+            const response = await fetch(`http://localhost:5000/UserDecision/${id}`, { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({ decision })
             });
-
+    
             if (response.ok) {
-                // Fetch the updated list of minders after the approval
                 fetchPendingMinders();
             } else {
-                console.error("Failed to approve minder:", await response.text());
+                console.error("Failed to process decision for minder:", await response.text());
             }
         } catch (error) {
             console.error('Error:', error);
         }
     };
-
-    const handleDeny = async (id) => {
-        try {
-            const response = await fetch(`http://localhost:5000/approveMinder/${id}`, { 
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.ok) {
-                // Fetch the updated list of minders after the approval
-                fetchPendingMinders();
-            } else {
-                console.error("Failed to approve minder:", await response.text());
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    
 
     return (
         <div>
@@ -93,7 +74,7 @@ const ApproveMinders = () => {
                         <td>{minder.email}</td>
                         <td>{minder.firstName} {minder.lastName}</td>
                         <td>
-                            <button onClick={() => handleApprove(minder.id)}>Approve</button> <button onClick={() => handleDeny(minder.id)}>Deny</button>
+                            <button onClick={() => handleDecision(minder.id, "approved")}>Approve</button> <button onClick={() => handleDecision(minder.id, "banned")}>Deny</button>
                         </td>
                     </tr>
                 ))}

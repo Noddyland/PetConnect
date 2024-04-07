@@ -16,6 +16,19 @@ const ShowProfile = () => {
     }
     return (null);
 }
+
+const ViewUsers = () => {
+    if (localStorage.getItem('userObject') != null){
+        const userObjectString = localStorage.getItem('userObject');
+        const userObject = JSON.parse(userObjectString);
+        if (userObject.user.role == "moderator"){
+            return(
+            <Link to="/viewUsers">View Users</Link>
+            )
+        }
+    }
+    return (null);
+}
 const LoginSwitch = () => {
     if (localStorage.getItem('userObject') == null){
         return (
@@ -32,6 +45,9 @@ const Navbar = () => {
                 <img src={petConnectLogo} alt="Home" />
             </Link>
             <ul className="nav-links">
+                <li>
+                    <ViewUsers />
+                </li>
                 <li>
                     <ShowProfile></ShowProfile>
                 </li>

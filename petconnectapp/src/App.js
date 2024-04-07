@@ -14,7 +14,7 @@ import ReviewMinder from './ReviewMinder';
 import Pets from './Pets';
 import ViewProfile from './ViewProfile';
 import EditServices from './editservices';
-
+import ViewUsers from './ViewUsers';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -42,6 +42,7 @@ function App() {
           <Route path="/Pets" element={<Pets />} />
           <Route path="/ViewProfile" element={<ViewProfile />} />
           <Route path="/EditServices" element={<EditServices/>} />
+          <Route path="/ViewUsers" element={<ViewUsers/>} />
         </Routes>
       </Router>
 
