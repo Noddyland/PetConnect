@@ -57,6 +57,11 @@ const ViewPets = () => {
         }
     };
 
+    const handleEditPet = (petId) => {
+        // Handle editing pet logic here
+        console.log(`Editing pet with ID ${petId}`);
+    };
+
     return (
         <div className="my-pets-container">
             <h3 className="my-pets-header">My Pets</h3>
@@ -65,6 +70,7 @@ const ViewPets = () => {
                     {pets.map((pet) => (
                         <li key={pet.petId}>
                             <button onClick={() => handleRemovePet(pet.petId)}>Remove Pet</button>
+                            <button onClick={() => handleEditPet(pet.petId)}>Edit Pet</button>
                             <strong>Name:</strong> {pet.name}, <strong>Type:</strong> {pet.type}, <strong>DOB:</strong> {pet.dob}
                             
                         </li>
