@@ -36,6 +36,27 @@ const ViewPets = () => {
         fetchPets();
     }, []); 
 
+    const handleRemovePet = async (petId) => {
+        try {
+            const response = await fetch(`http://localhost:5000/removepet/${petId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                setPets(prevPets => prevPets.filter(pet => pet.petId !== petId));
+                console.log("Pet removed successfully");
+            } else {
+                const errorData = await response.json();
+                console.error("Failed to remove pet:", errorData.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <div className="my-pets-container">
             <h3 className="my-pets-header">My Pets</h3>
@@ -43,7 +64,9 @@ const ViewPets = () => {
                 <ul className="my-pets-list">
                     {pets.map((pet) => (
                         <li key={pet.petId}>
+                            <button onClick={() => handleRemovePet(pet.petId)}>Remove Pet</button>
                             <strong>Name:</strong> {pet.name}, <strong>Type:</strong> {pet.type}, <strong>DOB:</strong> {pet.dob}
+                            
                         </li>
                     ))}
                 </ul>

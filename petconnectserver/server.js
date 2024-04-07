@@ -187,6 +187,26 @@ app.post('/addpet', (req, res) => {
   }
 })
 
+// REMOVE PET ROUTE
+app.delete('/removepet/:petId', (req, res) => {
+  try {
+    const { petId } = req.params;
+
+    const sql = 'DELETE FROM pets WHERE petId = ?';
+
+    db.run(sql, [petId], function (err) {
+      if (err) {
+        res.status(400).json({ "error": err.message });
+        return;
+      }
+      res.json({ "message": "Pet removed successfully" });
+    });
+  } catch (error) {
+    console.error('Error removing pet:', error);
+    res.status(500).json({ "error": "An error occurred while removing the pet" });
+  }
+});
+
 // GET BOOKINGS ROUTE
 
 app.get('/bookings/:userid', (req, res) => {
