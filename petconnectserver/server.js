@@ -33,7 +33,13 @@ app.all('/', function (req, res, next) {
 app.post('/register', async (req, res) => {
   try {
     const { username, password, email, phoneNumber, firstName, lastName, biography, userRole } = req.body;
-    const accountStatus = "approved";
+    var accountStatus = "";
+    if(userRole == "minder"){
+      accountStatus = "pending";
+    } else {
+      accountStatus = "approved";
+    }
+    
 
     // Hash the password with bcrypt
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -61,7 +67,6 @@ app.post('/register', async (req, res) => {
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
-  // SQL query to find the user by email
   const sql = 'SELECT * FROM users WHERE email = ?';
 
   db.get(sql, [email], (err, user) => {
@@ -69,43 +74,52 @@ app.post('/login', (req, res) => {
       res.status(500).json({ "error": err.message });
       return;
     }
-    // User not found
     if (!user) {
       res.status(404).json({ "error": "User not found" });
       return;
     }
 
-    // Compare the hashed password stored in the database with the password provided by the user
     bcrypt.compare(password, user.password, (err, result) => {
       if (err) {
         res.status(500).json({ "error": err.message });
         return;
       }
-      if (result) {
-        // Passwords match, create a token with the actual user data
-        const userToken = jwt.sign({
-          user: {
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            biography: user.biography,
-            accountStatus: user.accountStatus,
-            role: user.role
-          }
-        }, JWT_SECRET, { expiresIn: '1h' }); // Token expires in 1 hour
-
-        // Send the token as JSON
-        res.json({ token: userToken });
-      } else {
-        // Passwords do not match
-        res.status(401).json({ "error": "Invalid credentials" });
+      if (!result) {
+        res.status(401).json({ "error": "Invalid credentials!" });
+        return;
       }
+
+      // check the user's account status
+      if(user.accountStatus == "pending"){
+        res.status(401).json({ "error": "Your account is awaiting approval by a moderator!" });
+        return;
+      }
+
+      if(user.accountStatus == "banned"){
+        res.status(401).json({ "error": "You are banned!" });
+        return;
+      }
+
+      // create the token
+      const userToken = jwt.sign({
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          biography: user.biography,
+          accountStatus: user.accountStatus,
+          role: user.role
+        }
+      }, JWT_SECRET, { expiresIn: '1h' });
+
+      res.json({ token: userToken });
     });
   });
 });
+
 
 // SEARCH ROUTE
 app.post('/search', (req, res) => {
@@ -444,4 +458,21 @@ app.post('/bookings', (req, res) => {
   }
 });
 
+// GET PENDING MINDERS ROUTE
+app.get('/GetPendingMinders', (req, res) => {
+  const sql = `
+    SELECT id, email, firstName, lastName
+    FROM users
+    WHERE role = 'minder' AND accountStatus = 'pending'
+  `;
 
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({
+      pendingMinders: rows
+    });
+  });
+});

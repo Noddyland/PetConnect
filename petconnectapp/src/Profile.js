@@ -8,6 +8,7 @@ import Bookings from './bookings';
 import DisplayReviews from './DisplayReviews';
 import MyServices from './myservices';
 import GetReports from './GetReports';
+import ApproveMinders from './ApproveMinders';
 
 function DisplayDetails(){
     if(localStorage.getItem('userObject') != null){
@@ -34,8 +35,9 @@ function DisplayDetails(){
         }
 
         else if (userObject.user.role === 'moderator'){
-            return <div>
+            return <div className="moderator-panel">
                 <GetReports />
+                <ApproveMinders />
             </div>
         }
     }

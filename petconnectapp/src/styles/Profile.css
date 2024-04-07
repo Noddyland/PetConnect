@@ -13,3 +13,14 @@
     background-color: #940000;
 }
 
+.moderator-panel {
+    display: flex;
+    justify-content: space-between; /* This will place some space between the two tables */
+    padding: 20px; /* Padding around the entire container for some breathing room */
+}
+
+.moderator-panel > div {
+    flex: 1; /* This makes each child div take up equal space */
+    margin: 0 10px; /* Adds margin between the components */
+    box-sizing: border-box; /* Includes padding and border in the width and height of the elements */
+}
