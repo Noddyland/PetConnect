@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './styles/Pets.css';
+import EditPet from './EditPet';
 
 
 const ViewPets = () => {
     const [pets, setPets] = useState([]);
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [editPetId, setEditPetId] = useState(null);
+    const [editPetDetails, setEditPetDetails] = useState(null);
 
     useEffect(() => {
         const fetchPets = async () => {
@@ -57,22 +61,31 @@ const ViewPets = () => {
         }
     };
 
-    const handleEditPet = (petId) => {
-        // Handle editing pet logic here
-        console.log(`Editing pet with ID ${petId}`);
+    const handleEditPet = (petId, petDetails) => {
+        setShowEditForm(true);
+        setEditPetId(petId);
+        setEditPetDetails(petDetails);
     };
+    
+
+    const handleCloseEditForm = () => {
+        setShowEditForm(false);
+        setEditPetId(null);
+        setEditPetDetails(null);
+    };
+    
 
     return (
         <div className="my-pets-container">
             <h3 className="my-pets-header">My Pets</h3>
+            {showEditForm && <EditPet petId={editPetId} petDetails={editPetDetails} onClose={handleCloseEditForm} />}
             {pets.length > 0 ? (
                 <ul className="my-pets-list">
                     {pets.map((pet) => (
                         <li key={pet.petId}>
                             <button onClick={() => handleRemovePet(pet.petId)}>Remove Pet</button>
-                            <button onClick={() => handleEditPet(pet.petId)}>Edit Pet</button>
+                            <button onClick={() => handleEditPet(pet.petId, pet)}>Edit Pet</button>
                             <strong>Name:</strong> {pet.name}, <strong>Type:</strong> {pet.type}, <strong>DOB:</strong> {pet.dob}
-                            
                         </li>
                     ))}
                 </ul>
@@ -81,7 +94,6 @@ const ViewPets = () => {
             )}
         </div>
     );
-    
 };
 
 export default ViewPets;

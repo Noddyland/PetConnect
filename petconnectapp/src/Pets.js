@@ -1,30 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import './styles/Pets.css';
 import ViewPets from './ViewPets';
 
 const AddPets = () => {
-    const [petName, setPetName] = useState('');
-    const [type, setType] = useState('');
-    const [dob, setDob] = useState('');
-    const [breed, setBreed] = useState('');
-    const [weight, setWeight] = useState('');
-    const [diet, setDiet] = useState('');
-    const [special, setSpecial] = useState('');
-    const [emergencyNumber, setEmergencyNumber] = useState('');
+    const [petDetails, setPetDetails] = useState({
+        petName: '',
+        type: '',
+        dob: '',
+        breed: '',
+        weight: '',
+        diet: '',
+        special: '',
+        emergencyNumber: ''
+    });
 
-    const handlePetName = (event) => setPetName(event.target.value);
-    const handleType = (event) => setType(event.target.value);
-    const handleDob = (event) => setDob(event.target.value);
-    const handleBreed = (event) => setBreed(event.target.value);
-    const handleWeight = (event) => setWeight(event.target.value);
-    const handleDiet = (event) => setDiet(event.target.value);
-    const handleSpecial = (event) => setSpecial(event.target.value);
-    const handleEmergencyNumber = (event) => setEmergencyNumber(event.target.value);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPetDetails(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        
+    };
 
-    
-    
     const handleSubmit = async (e) => {
         e.preventDefault();
         const userObjectString = localStorage.getItem('userObject');
@@ -38,19 +37,23 @@ const AddPets = () => {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            userid: userObject.user.id, 
-                            petName,
-                            type, 
-                            dob, 
-                            breed, 
-                            weight, 
-                            diet, 
-                            special,
-                            emergencyNumber
+                            userid: userObject.user.id,
+                            ...petDetails // Include all pet details
                         }),
                     });
                     if (response.ok) {
                         console.log("Pet added successfully");
+                        // Optionally, reset form fields after successful submission
+                        setPetDetails({
+                            petName: '',
+                            type: '',
+                            dob: '',
+                            breed: '',
+                            weight: '',
+                            diet: '',
+                            special: '',
+                            emergencyNumber: ''
+                        });
                     } else {
                         const errorData = await response.json();
                         console.error("Failed to add pet:", errorData.message);
@@ -68,30 +71,29 @@ const AddPets = () => {
 
     return (
         <div>
-            
             <h3>Add Pets</h3>
             <form onSubmit={handleSubmit} className="pets-form">
                 <p>Pet Name:</p>
-                <input type='text' value={petName} onChange={handlePetName} />
-                <select value={type} onChange={handleType}>
+                <input type='text' name='petName' value={petDetails.petName} onChange={handleChange} />
+                <select name='type' value={petDetails.type} onChange={handleChange}>
                     <option value="dog">Dog</option>
                     <option value="cat">Cat</option>
                     <option value="rabbit">Rabbit</option>
                     <option value="exotic">Exotic</option>
                 </select>
                 <p>Date of birth</p>
-                <input type='date' value={dob} onChange={handleDob} />
+                <input type='date' name='dob' value={petDetails.dob} onChange={handleChange} />
                 <p>Breed</p>
-                <input type='text' value={breed} onChange={handleBreed} />
+                <input type='text' name='breed' value={petDetails.breed} onChange={handleChange} />
                 <p>Weight (kg)</p>
-                <input type='number' value={weight} onChange={handleWeight} />
+                <input type='number' name='weight' value={petDetails.weight} onChange={handleChange} />
                 <p>Diet</p>
-                <input type='text' value={diet} onChange={handleDiet} />
+                <input type='text' name='diet' value={petDetails.diet} onChange={handleChange} />
                 <label>Special requirements?</label>
                 <p>Special Requirements?</p>
-                <input type='text' value={special} onChange={handleSpecial} />
+                <input type='text' name='special' value={petDetails.special} onChange={handleChange} />
                 <p>Emergency Contact Number:</p>
-                <input type='text' value={emergencyNumber} onChange={handleEmergencyNumber} />
+                <input type='text' name='emergencyNumber' value={petDetails.emergencyNumber} onChange={handleChange} />
                 <button type='submit' className='add-pet-button'>Add Pet</button>
             </form>
         </div>

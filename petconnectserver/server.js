@@ -186,6 +186,35 @@ app.post('/addpet', (req, res) => {
     res.status(500).json({ 'error': 'an error occured when trying to add pet' })
   }
 })
+// UPDATE PET ROUTE
+app.put('/editpet/:petId', (req, res) => {
+  try {
+    const { petId } = req.params;
+    console.log('Received petId:', petId); // Log received petId
+
+    const { petName, type, dob, breed, weight, diet, special, emergencyNumber } = req.body;
+    console.log('Received pet details:', req.body); // Log received pet details
+
+    const sql = `
+      UPDATE pets 
+      SET name = ?, type = ?, dob = ?, breed = ?, weightKg = ?, dietaryPreferences = ?, specialRequirements = ?, EmergencyContactInfo = ?
+      WHERE petId = ?`;
+
+    db.run(sql, [petName, type, dob, breed, weight, diet, special, emergencyNumber, petId], function (err) {
+      if (err) {
+        console.error('Error updating pet details:', err);
+        res.status(400).json({ "error": err.message });
+        return;
+      }
+      res.json({ "message": "Pet details updated successfully" });
+    });
+  } catch (error) {
+    console.error('Error updating pet details:', error);
+    res.status(500).json({ "error": "An error occurred while updating pet details" });
+  }
+});
+
+
 
 // REMOVE PET ROUTE
 app.delete('/removepet/:petId', (req, res) => {
