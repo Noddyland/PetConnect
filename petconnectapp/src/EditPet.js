@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './styles/EditPet.css'
 
 const EditPet = ({ petId, petDetails, onClose }) => {
     const [petDetailsForm, setPetDetailsForm] = useState({
@@ -65,14 +66,22 @@ const EditPet = ({ petId, petDetails, onClose }) => {
         <div>
             <h3>Edit Pet: {petDetailsForm.petName}</h3>
             <form onSubmit={handleSubmit} className="edit-pet-form">
-                <input type='text' name='petName' value={petDetailsForm.petName} onChange={handleChange} />
-                <input type='text' name='type' value={petDetailsForm.type} onChange={handleChange} />
-                <input type='date' name='dob' value={petDetailsForm.dob} onChange={handleChange} />
-                <input type='text' name='breed' value={petDetailsForm.breed} onChange={handleChange} />
-                <input type='number' name='weight' value={petDetailsForm.weight} onChange={handleChange} />
-                <input type='text' name='diet' value={petDetailsForm.diet} onChange={handleChange} />
-                <input type='text' name='special' value={petDetailsForm.special} onChange={handleChange} />
-                <input type='text' name='emergencyNumber' value={petDetailsForm.emergencyNumber} onChange={handleChange} />
+                <label htmlFor="petName">Pet Name:</label>
+                <input type='text' id="petName" name='petName' value={petDetailsForm.petName} onChange={handleChange} />
+                <label htmlFor="type">Type:</label>
+                <input type='text' id="type" name='type' value={petDetailsForm.type} onChange={handleChange} />
+                <label htmlFor="dob">Date of Birth:</label>
+                <input type='date' id="dob" name='dob' value={petDetailsForm.dob} onChange={handleChange} />
+                <label htmlFor="breed">Breed:</label>
+                <input type='text' id="breed" name='breed' value={petDetailsForm.breed} onChange={handleChange} />
+                <label htmlFor="weight">Weight:</label>
+                <input type='number' id="weight" name='weight' value={petDetailsForm.weight} onChange={handleChange} />
+                <label htmlFor="diet">Diet:</label>
+                <input type='text' id="diet" name='diet' value={petDetailsForm.diet} onChange={handleChange} />
+                <label htmlFor="special">Special:</label>
+                <input type='text' id="special" name='special' value={petDetailsForm.special} onChange={handleChange} />
+                <label htmlFor="emergencyNumber">Emergency Number:</label>
+                <input type='text' id="emergencyNumber" name='emergencyNumber' value={petDetailsForm.emergencyNumber} onChange={handleChange} />
                 <button type='submit'>Save Changes</button>
                 <button onClick={onClose}>Close</button>
             </form>
