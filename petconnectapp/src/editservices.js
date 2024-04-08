@@ -13,9 +13,21 @@ const EditServices = () => {
             if (checked) {
                 setSelectedPets([...selectedPets, value]);
             } else {
+                // if dogWalking is selected, prevent unchecking dog
+                if (selectedServices.includes('dogWalking') && value === 'dog') {
+                    return;
+                }
                 setSelectedPets(selectedPets.filter(pet => pet !== value));
             }
         } else if (type === 'services') {
+            if (value === 'dogWalking') {
+                if (checked) {
+                    setSelectedPets([...selectedPets, 'dog']); // Automatically select 'dog' when 'dogWalking' is checked
+                } else {
+                    // remove 'dog' from selected pets if 'dogWalking' is unchecked
+                    setSelectedPets(selectedPets.filter(pet => pet !== 'dog'));
+                }
+            }
             if (checked) {
                 setSelectedServices([...selectedServices, value]);
             } else {

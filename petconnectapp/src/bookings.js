@@ -20,9 +20,9 @@ const ViewBookings = () => {
         const timePart = dateString.split(' ')[1];
       
         const day = date.getUTCDate();
-        const suffix = ['th', 'st', 'nd', 'rd'][(day % 10 > 3) ? 0 : (((day % 100) - (day % 10) != 10) ? day % 10 : 0)];
+        const suffix = ['th', 'st', 'nd', 'rd'][(day % 10 > 3) ? 0 : (((day % 100) - (day % 10) !== 10) ? day % 10 : 0)];
       
-        const finalDate = formattedDate.replace(day, `${day}${suffix}`) + ', ' + timePart;
+        const finalDate = formattedDate.replace(day, `${day}${suffix}`) + ' ' + timePart;
       
         return finalDate;
       }
