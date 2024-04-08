@@ -190,11 +190,7 @@ app.post('/addpet', (req, res) => {
 app.put('/editpet/:petId', (req, res) => {
   try {
     const { petId } = req.params;
-    console.log('Received petId:', petId); // Log received petId
-
     const { petName, type, dob, breed, weight, diet, special, emergencyNumber } = req.body;
-    console.log('Received pet details:', req.body); // Log received pet details
-
     const sql = `
       UPDATE pets 
       SET name = ?, type = ?, dob = ?, breed = ?, weightKg = ?, dietaryPreferences = ?, specialRequirements = ?, EmergencyContactInfo = ?
