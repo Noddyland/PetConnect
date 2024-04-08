@@ -15,15 +15,16 @@ const EditPet = ({ petId, petDetails, onClose }) => {
 
     useEffect(() => {
         if (petDetails) {
+            console.log(petDetails);
             setPetDetailsForm({
-                petName: petDetails.petName || '',
+                petName: petDetails.name || '',
                 type: petDetails.type || '',
                 dob: petDetails.dob || '',
                 breed: petDetails.breed || '',
-                weight: petDetails.weight || '',
-                diet: petDetails.diet || '',
-                special: petDetails.special || '',
-                emergencyNumber: petDetails.emergencyNumber || ''
+                weight: petDetails.weightKg || '',
+                diet: petDetails.dietaryPreferences || '',
+                special: petDetails.specialRequirements || '',
+                emergencyNumber: petDetails.EmergencyContactInfo || ''
             });
         }
     }, [petDetails]);
