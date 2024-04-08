@@ -38,12 +38,11 @@ const AddPets = () => {
                         },
                         body: JSON.stringify({
                             userid: userObject.user.id,
-                            ...petDetails // Include all pet details
+                            ...petDetails 
                         }),
                     });
                     if (response.ok) {
                         console.log("Pet added successfully");
-                        // Optionally, reset form fields after successful submission
                         setPetDetails({
                             petName: '',
                             type: '',

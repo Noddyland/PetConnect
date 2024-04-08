@@ -30,6 +30,9 @@ const BookMinder = () => {
                     if (response.ok) {
                         const data = await response.json();
                         setPets(data);
+                        if (data.length > 0) {
+                            setSelectedPetId(data[0].petId); 
+                        }
                     } else {
                         console.error("Failed to fetch pets.");
                     }

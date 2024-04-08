@@ -282,7 +282,7 @@ app.post('/BookMinder', (req, res) => {
     const { ownerId, minderId, petId, date, time, duration } = req.body
     let dateTime = `${date} ${time}`;
     const status = "pending";
-
+    console.log(petId);
     const sql = `INSERT INTO bookings (ownerId, minderId, petId, dateTime, durationMins, status) VALUES (?, ?, ?, ?, ?, ?)`
     db.run(sql, [ownerId, minderId, petId, dateTime, duration, status], function (err) {
       if (err) {
