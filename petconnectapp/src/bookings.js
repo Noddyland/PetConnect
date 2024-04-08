@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './styles/bookings.css';
+import { useLocation } from 'react-router-dom';
+
 const ViewBookings = () => {
     const [bookings, setBookings] = useState([]);
     const [buttonClicked, setButtonClicked] = useState({});
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const filterDate = queryParams.get('date'); 
 
     function formatDate(dateString) { // formats the date so it looks a bit nicer
         const date = new Date(dateString);
@@ -27,8 +32,19 @@ const ViewBookings = () => {
         return finalDate;
       }
 
+    function DateFilterFormat(dateString) {
+        const date = new Date(dateString);
+
+        const day = date.getUTCDate().toString().padStart(2, '0'); 
+        const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); 
+        const year = date.getUTCFullYear();
+
+        return `${day}/${month}/${year}`;
+    }
+    
     useEffect(() => {
         const fetchBookings = async () => {
+
             const userObjectString = localStorage.getItem('userObject');
             if (userObjectString) {
                 const userObject = JSON.parse(userObjectString);
@@ -49,6 +65,7 @@ const ViewBookings = () => {
                             return acc;
                         }, {});
                         setBookings(data);
+                        console.log(data);
                         setButtonClicked(buttonVisibility);
                     } else {
                         const errorData = await response.json();
@@ -144,20 +161,26 @@ const ViewBookings = () => {
         }
     };
 
+    const filteredBookings = filterDate
+        ? bookings.filter(booking => DateFilterFormat(booking.dateTime).startsWith(filterDate))
+        : bookings;
 
     return (
         <div>
             <h3>My Bookings</h3>
-            {bookings.length > 0 ? (
+            {filteredBookings.length > 0 ? (
                 <ul>
-                    {bookings.map((booking) => (
+                    {filteredBookings.map((booking) => (
                         <li key={booking.bookingId} className='bookings_'>
-                            <strong>Pet Minder:</strong> {booking.firstName} {booking.lastName} <strong>Pet:</strong> {booking.name} <strong>Type:</strong> {booking.type} <br/><strong>Date:</strong> {formatDate(booking.dateTime)} <strong>Duration:</strong> {booking.durationMins} mins
+                            <strong>Pet Minder:</strong> {booking.firstName} {booking.lastName}
+                            <strong> Pet:</strong> {booking.name} <strong>Type:</strong> {booking.type}
+                            <br/><strong>Date:</strong> {formatDate(booking.dateTime)}
+                            <strong> Duration:</strong> {booking.durationMins} mins
                             <div>
                                 {buttonClicked[booking.bookingId] && (
                                     <>
-                                        <button id="accept-button" onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
-                                        <button id="deny-button" onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
+                                        <button onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
+                                        <button onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
                                     </>
                                 )}
                             </div>
@@ -172,6 +195,7 @@ const ViewBookings = () => {
         </div>
     );
 };
+    
 
 const Bookings = () => {
     return (<table style={{ borderCollapse: 'collapse', width: '80%', marginTop: '20px', backgroundColor: 'white', margin: 'auto' }}>

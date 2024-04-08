@@ -1,5 +1,5 @@
-import './styles/myservices.css'
-import Calendar from 'react-calendar'
+import './styles/myservices.css';
+import UserCalendar from './UserCalendar';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -73,8 +73,7 @@ const MyServices = () => {
                 )}
             </table>
             <div className="calendar">
-                Calendar
-                <Calendar />
+                <UserCalendar />
             </div>
         </div>
     );

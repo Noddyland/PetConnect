@@ -1,0 +1,84 @@
+/* General background of the calendar */
+.react-calendar {
+    width: 100%; /* Make the calendar take the full width of its container */
+    max-width: none; /* Override any max-width that might be restricting its width */
+    border: 1px solid #A70909;
+    font-family: Arial, sans-serif; /* Set the font for the calendar */
+}
+
+/* Navigation button styles */
+.react-calendar__navigation button {
+    background-color: #A70909;
+    color: white;
+    min-width: 44px;
+    margin-top: 8px;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background-color: #8b0000; /* Slightly darker shade for hover/focus */
+}
+
+/* Month and year view in the navigation bar */
+.react-calendar__navigation__label {
+    color: white;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Weekday labels (Sun, Mon, etc.) */
+.react-calendar__month-view__weekdays {
+    color: #A70909;
+    font-weight: bold;
+}
+
+/* Days on the calendar */
+.react-calendar__month-view__days__day {
+    color: black;
+}
+
+/* Days that are in the current month */
+.react-calendar__month-view__days__day--weekend,
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+    background-color: #f0f0f0;
+}
+
+/* Highlight today's date */
+.react-calendar__tile--now {
+    background-color: #ffdada;
+    color: #A70909;
+    font-weight: bold;
+}
+
+/* Highlight selected date */
+.react-calendar__tile--active {
+    background-color: #A70909;
+    color: white;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+    background-color: #8b0000;
+}
+
+/* Adjust the booking link colors and styles */
+.link-to-booking {
+    color: #fff; /* White text for links */
+    text-decoration: none;
+    display: block;
+    padding: 5px;
+    text-align: center;
+    background-color: #A70909;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.link-to-booking:hover {
+    background-color: #8b0000; /* Darker red on hover */
+}
+
+.highlight {
+    background-color: #A70909 !important; /* Deep red background */
+    color: white !important; /* White text */
+}

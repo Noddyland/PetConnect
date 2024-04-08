@@ -25,7 +25,7 @@
 }
 
 .calendar {
-    width: 40%; /* Adjust the width as needed */
+    width: 50%; /* Adjust the width as needed */
     padding: 10px;
     border-left: 1px solid #A70909; /* Add a border to separate the table and calendar */
 }
