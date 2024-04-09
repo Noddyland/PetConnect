@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import './styles/Pets.css';
 import EditPet from './EditPet';
 
@@ -92,6 +94,7 @@ const ViewPets = () => {
             ) : (
                 <p className="no-pets-found">No pets found.</p>
             )}
+            <Link to="/pets" className="profile-to-pets-button">Manage My Pets</Link>
         </div>
     );
 };

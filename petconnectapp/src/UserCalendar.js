@@ -15,9 +15,11 @@ const UserCalendar = () => {
             if (userObjectString) {
                 const userObject = JSON.parse(userObjectString);
                 const userid = userObject.user.id;
+                const userRole = userObject.user.role;
+                
 
                 try {
-                    const response = await fetch(`http://localhost:5000/bookings/${userid}`, {
+                    const response = await fetch(`http://localhost:5000/bookings/${userRole}s/${userid}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -26,7 +28,6 @@ const UserCalendar = () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        console.log(data);
                         setBookings(data);
                     } else {
                         const errorData = await response.json();

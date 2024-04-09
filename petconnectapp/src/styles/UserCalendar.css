@@ -3,6 +3,7 @@
     max-width: none; 
     border: 1px solid #A70909;
     font-family: Arial, sans-serif; 
+    height:100%;
 }
 
 .react-calendar__navigation button {

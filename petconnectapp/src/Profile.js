@@ -10,6 +10,7 @@ import MyServices from './myservices';
 import GetReports from './GetReports';
 import ApproveMinders from './ApproveMinders';
 import OwnerBookings from './OwnerBookings';
+import UserCalendar from './UserCalendar';
 
 function DisplayDetails() {
     if (localStorage.getItem('userObject') != null) {
@@ -21,9 +22,9 @@ function DisplayDetails() {
         if (userObject.user.role === 'owner') {
             return <div>
                 {reviews}
-                <div><ViewPets /></div>
-                <div>
-                    <Link to="/pets" className="profile-to-pets-button">Manage My Pets</Link>
+                <div className="moderator-panel">
+                    <ViewPets />
+                    <UserCalendar />
                 </div>
                 <div className="bookingsOwner"><OwnerBookings/></div>
             </div>;

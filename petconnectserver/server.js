@@ -241,7 +241,7 @@ app.get('/bookings/minders/:userid', (req, res) => {
     FROM bookings AS b
     LEFT OUTER JOIN pets AS p ON b.petId = p.petId
     LEFT OUTER JOIN users AS u ON b.ownerId = u.id
-    WHERE b.minderID = ? AND b.status != 'denied';`;
+    WHERE b.minderID = ?`;
 
   db.all(sql, [userid], (err, rows) => {
     if (err) {
@@ -253,13 +253,15 @@ app.get('/bookings/minders/:userid', (req, res) => {
 });
 
 // GET BOOKINGS FOR OWNERS ROUTE
+
 app.get('/bookings/owners/:userid', (req, res) => {
   const { userid } = req.params;
   const sql = `
-    SELECT *
+    SELECT b.*, p.name AS name, p.type AS type, 
+           u.firstName AS firstName, u.lastName AS lastName
     FROM bookings AS b
     LEFT OUTER JOIN pets AS p ON b.petId = p.petId
-    LEFT OUTER JOIN users AS u ON b.ownerId = u.id
+    LEFT OUTER JOIN users AS u ON b.minderId = u.id  
     WHERE b.ownerID = ?`;
 
   db.all(sql, [userid], (err, rows) => {
@@ -270,6 +272,7 @@ app.get('/bookings/owners/:userid', (req, res) => {
     res.json(rows);
   });
 });
+
 
 // DELETE a booking route
 app.delete('/bookings/remove/:bookingId', (req, res) => {
@@ -284,6 +287,7 @@ app.delete('/bookings/remove/:bookingId', (req, res) => {
     res.json({ message: 'Booking removed successfully.' });
   });
 });
+
 
 
 
