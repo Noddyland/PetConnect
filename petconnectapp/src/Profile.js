@@ -10,6 +10,7 @@ import MyServices from './myservices';
 import GetReports from './GetReports';
 import ApproveMinders from './ApproveMinders';
 import OwnerBookings from './OwnerBookings';
+import UserCalendar from './UserCalendar';
 
 function DisplayDetails() {
     if (localStorage.getItem('userObject') != null) {

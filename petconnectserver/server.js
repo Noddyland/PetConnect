@@ -241,15 +241,7 @@ app.get('/bookings/minders/:userid', (req, res) => {
     FROM bookings AS b
     LEFT OUTER JOIN pets AS p ON b.petId = p.petId
     LEFT OUTER JOIN users AS u ON b.ownerId = u.id
-  `;
-
-  if (userRole === 'minder') {
-    sql += `WHERE b.minderID = ? AND b.status != 'denied'`;
-  } else if (userRole === 'owner') {
-    sql += `WHERE b.ownerId = ? AND b.status != 'denied'`;
-  } else {
-    return res.status(400).json({ error: 'Invalid role' });
-  }
+    WHERE b.minderID = ?`;
 
   db.all(sql, [userid], (err, rows) => {
     if (err) {
@@ -261,6 +253,7 @@ app.get('/bookings/minders/:userid', (req, res) => {
 });
 
 // GET BOOKINGS FOR OWNERS ROUTE
+
 app.get('/bookings/owners/:userid', (req, res) => {
   const { userid } = req.params;
   const sql = `
