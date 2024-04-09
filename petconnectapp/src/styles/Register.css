@@ -100,3 +100,7 @@
 a:link{
   text-decoration: none;
 }
+
+.error-message{
+  margin-top: 1rem;
+}

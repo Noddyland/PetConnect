@@ -11,14 +11,23 @@ function Register() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [biography, setBiography] = useState('');
-  const [userRole, setUserRole] = useState('owner'); 
+  const [userRole, setUserRole] = useState('owner');
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
 
   const backendUrl = 'http://localhost:5000'; // backend URL
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // check if any of the required fields are empty
+    if (!username || !password || !email || !phoneNumber || !firstName || !lastName || !biography) {
+      setShowErrorMessage(true);
+      return;
+    }
+    else{
+      setShowErrorMessage(false);
+    }
     try {
       const response = await fetch(`${backendUrl}/register`, {
         method: 'POST',
@@ -138,6 +147,9 @@ function Register() {
 
         <div className="form-group">
           <button type="submit" className="form-button">Register</button>
+          {showErrorMessage && (
+            <div className="error-message">Please fill out all required fields.</div>
+          )}
           <p id="updateConfirmation"></p>
         </div>
       </form>
