@@ -45,9 +45,13 @@ const ViewBookings = () => {
     const DecideBookingButtons = (booking) => {
         const userObject = JSON.parse(localStorage.getItem('userObject'));
         if(userObject.user.role == "minder"){
-            return <div><p id={`bookingDenied_${booking.bookingId}`}></p>
-            <p id={`bookingAccepted_${booking.bookingId}`}></p></div>
+            return (
+            <div>
+                <button className = "ac-button" onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
+                <button className ="ac-button" onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
+            </div> );
         }
+        return(null);
     }
 
     useEffect(() => {
@@ -60,7 +64,7 @@ const ViewBookings = () => {
                 const userRole = userObject.user.role;
 
                 try {
-                    const response = await fetch(`http://localhost:5000/bookings/minders/${userid}`, {
+                    const response = await fetch(`http://localhost:5000/bookings/${userRole}s/${userid}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -185,14 +189,14 @@ const ViewBookings = () => {
                             <strong> Pet:</strong> {booking.name} <strong>Type:</strong> {booking.type}
                             <br/><strong>Date:</strong> {formatDate(booking.dateTime)}
                             <strong> Duration:</strong> {booking.durationMins} mins
-                            <div>
-                                {buttonClicked[booking.bookingId] && (
-                                    <>
-                                        <button className = "ac-button" onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
-                                        <button className ="ac-button" onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
-                                    </>
-                                )}
-                            </div>
+                            {buttonClicked[booking.bookingId] && (
+                                <>
+                                    <DecideBookingButtons booking={booking} />
+                                    
+                                </>
+                            )}
+                            
+                            
                             <p id={`bookingDenied_${booking.bookingId}`}></p>
                             <p id={`bookingAccepted_${booking.bookingId}`}></p>
                         </li>

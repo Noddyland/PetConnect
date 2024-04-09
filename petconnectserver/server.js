@@ -257,10 +257,11 @@ app.get('/bookings/minders/:userid', (req, res) => {
 app.get('/bookings/owners/:userid', (req, res) => {
   const { userid } = req.params;
   const sql = `
-    SELECT *
+    SELECT b.*, p.name AS name, p.type AS type, 
+           u.firstName AS firstName, u.lastName AS lastName
     FROM bookings AS b
     LEFT OUTER JOIN pets AS p ON b.petId = p.petId
-    LEFT OUTER JOIN users AS u ON b.ownerId = u.id
+    LEFT OUTER JOIN users AS u ON b.minderId = u.id  
     WHERE b.ownerID = ?`;
 
   db.all(sql, [userid], (err, rows) => {
@@ -271,6 +272,7 @@ app.get('/bookings/owners/:userid', (req, res) => {
     res.json(rows);
   });
 });
+
 
 // DELETE a booking route
 app.delete('/bookings/remove/:bookingId', (req, res) => {

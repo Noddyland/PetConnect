@@ -23,8 +23,8 @@ function DisplayDetails() {
             return <div>
                 {reviews}
                 <div className="moderator-panel">
-                <ViewPets />
-                <UserCalendar />
+                    <ViewPets />
+                    <UserCalendar />
                 </div>
                 <div className="bookingsOwner"><OwnerBookings/></div>
             </div>;
