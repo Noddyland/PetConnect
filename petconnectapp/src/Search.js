@@ -6,6 +6,7 @@ const Search = () => {
     const [selectedPet, setSelectedPet] = useState('dog');
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
     const navigate = useNavigate();
 
     const handleServiceChange = (event) => setSelectedService(event.target.value);
@@ -16,8 +17,11 @@ const Search = () => {
     const handleSearch = async () => {
         // Check all inputs have been provided 
         if (!selectedService || !selectedPet || !selectedDate || !selectedCity) {
-            alert('Please select all options before searching.');
+            setShowErrorMessage(true);
             return;
+        }
+        else {
+            setShowErrorMessage(false);
         }
 
         const searchParams = {
@@ -32,20 +36,22 @@ const Search = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(searchParams),
-                
+
             });
-            
+
             const data = await response.json();
             const updatedData = data.map(item => ({
                 ...item,
                 dateTime: selectedDate,
                 service: selectedService
-              }));
+            }));
 
 
-            navigate('/SearchResults',{ state: { 
-                searchResults: updatedData,
-            } }
+            navigate('/SearchResults', {
+                state: {
+                    searchResults: updatedData,
+                }
+            }
             );
 
         } catch (error) {
@@ -106,7 +112,10 @@ const Search = () => {
                         </div>
                     </div>
                 </div>
-                <button id ="search-button" onClick={handleSearch}>Search</button>
+                <button id="search-button" onClick={handleSearch}>Search</button>
+                {showErrorMessage && (
+                    <div className="error-message">Please fill out all required fields.</div>
+                )}
             </div>
             <p>(only London works for now)</p>
         </div>

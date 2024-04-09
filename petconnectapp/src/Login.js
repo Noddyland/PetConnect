@@ -13,12 +13,12 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage(''); // Clear previous errors
-    // Check if email or password is empty
+    // check if email or password is empty
     if (!email || !password) {
       setErrorMessage('Please fill in both email and password fields.');
-      return; // Prevent form submission
+      return; 
     }
-    const backendUrl = 'http://localhost:5000'; // Define your backend URL
+    const backendUrl = 'http://localhost:5000'; // backend URL
     try {
       const response = await fetch(`${backendUrl}/login`, {
         method: 'POST',

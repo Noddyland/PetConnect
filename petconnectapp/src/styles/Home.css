@@ -11,7 +11,7 @@ h1 {
     margin: 50px auto;
     border-radius: 22px;
     justify-content: center;
-    padding: 1rem;
+    padding: 2.5rem;
 }
 
 #input-content {
@@ -63,4 +63,9 @@ label {
     font-style: normal;
     font-weight: 400;
     box-sizing: border-box; /* Include border in element's dimensions */
+}
+
+.error-message{
+    margin-bottom: 1rem;
+    color: white;
 }
