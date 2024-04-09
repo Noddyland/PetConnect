@@ -51,7 +51,7 @@ const ViewBookings = () => {
                 const userid = userObject.user.id;
 
                 try {
-                    const response = await fetch(`http://localhost:5000/bookings/${userid}`, {
+                    const response = await fetch(`http://localhost:5000/bookings/minders/${userid}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -179,8 +179,8 @@ const ViewBookings = () => {
                             <div>
                                 {buttonClicked[booking.bookingId] && (
                                     <>
-                                        <button onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
-                                        <button onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
+                                        <button className = "ac-button" onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
+                                        <button className ="ac-button" onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
                                     </>
                                 )}
                             </div>

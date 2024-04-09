@@ -22,3 +22,20 @@
     display: block;
     /* Ensure each label is on its own line */
 }
+
+.go-back {
+    background-color: #22577A;
+    /* Dark blue for the button */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 10px;
+    box-shadow: none;
+}
+
+.go-back:hover{
+    background-color: #1A4766;
+}

@@ -33,3 +33,14 @@
 button{
     background-color: #22577A;
 }
+
+.updateServices{
+    background-color: #22577A;
+    padding: 0.5rem;
+    color: white;
+    border-radius: 0.5rem;
+}
+
+.updateServices:hover{
+    background-color: #1A4766;
+}

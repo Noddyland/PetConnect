@@ -34,12 +34,12 @@ app.post('/register', async (req, res) => {
   try {
     const { username, password, email, phoneNumber, firstName, lastName, biography, userRole } = req.body;
     var accountStatus = "";
-    if(userRole == "minder"){
+    if (userRole == "minder") {
       accountStatus = "pending";
     } else {
       accountStatus = "approved";
     }
-    
+
 
     // Hash the password with bcrypt
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -90,12 +90,12 @@ app.post('/login', (req, res) => {
       }
 
       // check the user's account status
-      if(user.accountStatus == "pending"){
+      if (user.accountStatus == "pending") {
         res.status(401).json({ "error": "Your account is awaiting approval by a moderator!" });
         return;
       }
 
-      if(user.accountStatus == "banned"){
+      if (user.accountStatus == "banned") {
         res.status(401).json({ "error": "You are banned!" });
         return;
       }
@@ -232,9 +232,9 @@ app.delete('/removepet/:petId', (req, res) => {
   }
 });
 
-// GET BOOKINGS ROUTE
+// GET BOOKINGS FOR MINDERS ROUTE 
 
-app.get('/bookings/:userid', (req, res) => {
+app.get('/bookings/minders/:userid', (req, res) => {
   const { userid } = req.params;
   const sql = `
     SELECT *
@@ -251,6 +251,40 @@ app.get('/bookings/:userid', (req, res) => {
     res.json(rows);
   });
 });
+
+// GET BOOKINGS FOR OWNERS ROUTE
+app.get('/bookings/owners/:userid', (req, res) => {
+  const { userid } = req.params;
+  const sql = `
+    SELECT *
+    FROM bookings AS b
+    LEFT OUTER JOIN pets AS p ON b.petId = p.petId
+    LEFT OUTER JOIN users AS u ON b.ownerId = u.id
+    WHERE b.ownerID = ?`;
+
+  db.all(sql, [userid], (err, rows) => {
+    if (err) {
+      console.error('Error:', err.message);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
+});
+
+// DELETE a booking route
+app.delete('/bookings/remove/:bookingId', (req, res) => {
+  const { bookingId } = req.params;
+  const sql = `DELETE FROM bookings WHERE bookingId = ?`;
+
+  db.run(sql, [bookingId], function (err) {
+    if (err) {
+      console.error('Error:', err.message);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ message: 'Booking removed successfully.' });
+  });
+});
+
 
 
 // GET REVIEWS ROUTE
@@ -505,26 +539,26 @@ app.get('/GetPendingMinders', (req, res) => {
 // ACCEPT OR DENY MINDER ROUTE
 
 app.post('/UserDecision/:id', (req, res) => {
-  const { id } = req.params; 
-  const { decision } = req.body; 
+  const { id } = req.params;
+  const { decision } = req.body;
 
   if (!['approved', 'pending', 'rejected', 'banned'].includes(decision)) {
-      res.status(400).json({ error: 'Invalid decision value' });
-      return;
+    res.status(400).json({ error: 'Invalid decision value' });
+    return;
   }
 
   const sql = `UPDATE users SET accountStatus = ? WHERE id = ?`;
 
-  db.run(sql, [decision, id], function(err) {
-      if (err) {
-          res.status(500).json({ error: err.message });
-          return;
-      }
-      if (this.changes === 0) {
-          res.status(404).json({ error: "User not found" });
-      } else {
-          res.json({ message: 'User status updated successfully', changes: this.changes });
-      }
+  db.run(sql, [decision, id], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    if (this.changes === 0) {
+      res.status(404).json({ error: "User not found" });
+    } else {
+      res.json({ message: 'User status updated successfully', changes: this.changes });
+    }
   });
 });
 
@@ -537,12 +571,12 @@ app.get('/GetUsers', (req, res) => {
   `;
 
   db.all(sql, [], (err, rows) => {
-      if (err) {
-          res.status(500).json({ error: err.message });
-          return;
-      }
-      res.json({
-          users: rows
-      });
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({
+      users: rows
+    });
   });
 });

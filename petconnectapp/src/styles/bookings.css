@@ -13,6 +13,30 @@ ul{
     list-style-type: none;
 }
 
-#accept-button, #deny-button{
+.ac-button{
     margin: 0.5rem;
+}
+
+.bookingStatus{
+    background-color: #22577A;
+    color: white;
+    padding: 0.3rem;
+    border-radius: 1rem;
+}
+
+.rm-button{
+    padding: 0.5rem;
+    margin: 1rem;
+}
+
+.rm-button:hover{
+    background-color: #1A4766;
+}
+
+.deniedStatus{
+   background-color:  #A70909;
+}
+
+.acceptedStatus{
+    background: green;
 }
