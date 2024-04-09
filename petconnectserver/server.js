@@ -234,14 +234,24 @@ app.delete('/removepet/:petId', (req, res) => {
 
 // GET BOOKINGS ROUTE
 
-app.get('/bookings/:userid', (req, res) => {
-  const { userid } = req.params;
-  const sql = `
+app.get('/bookings', (req, res) => {
+  const userid = req.query.userid;
+  const userRole = req.query.userRole;
+
+  let sql = `
     SELECT *
     FROM bookings AS b
     LEFT OUTER JOIN pets AS p ON b.petId = p.petId
     LEFT OUTER JOIN users AS u ON b.ownerId = u.id
-    WHERE b.minderID = ? AND b.status != 'denied';`;
+  `;
+
+  if (userRole === 'minder') {
+    sql += `WHERE b.minderID = ? AND b.status != 'denied'`;
+  } else if (userRole === 'owner') {
+    sql += `WHERE b.ownerId = ? AND b.status != 'denied'`;
+  } else {
+    return res.status(400).json({ error: 'Invalid role' });
+  }
 
   db.all(sql, [userid], (err, rows) => {
     if (err) {
@@ -251,6 +261,7 @@ app.get('/bookings/:userid', (req, res) => {
     res.json(rows);
   });
 });
+
 
 
 // GET REVIEWS ROUTE

@@ -42,6 +42,14 @@ const ViewBookings = () => {
         return `${day}/${month}/${year}`;
     }
     
+    const DecideBookingButtons = (booking) => {
+        const userObject = JSON.parse(localStorage.getItem('userObject'));
+        if(userObject.user.role == "minder"){
+            return <div><p id={`bookingDenied_${booking.bookingId}`}></p>
+            <p id={`bookingAccepted_${booking.bookingId}`}></p></div>
+        }
+    }
+
     useEffect(() => {
         const fetchBookings = async () => {
 
@@ -49,9 +57,10 @@ const ViewBookings = () => {
             if (userObjectString) {
                 const userObject = JSON.parse(userObjectString);
                 const userid = userObject.user.id;
+                const userRole = userObject.user.role;
 
                 try {
-                    const response = await fetch(`http://localhost:5000/bookings/${userid}`, {
+                    const response = await fetch(`http://localhost:5000/bookings?userid=${userid}&userRole=${userRole}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -164,7 +173,7 @@ const ViewBookings = () => {
     const filteredBookings = filterDate
         ? bookings.filter(booking => DateFilterFormat(booking.dateTime).startsWith(filterDate))
         : bookings;
-
+    
     return (
         <div>
             <h3>My Bookings</h3>
