@@ -198,25 +198,24 @@ const ViewBookings = () => {
     
 
 const Bookings = () => {
-    return (<table style={{ borderCollapse: 'collapse', width: '80%', marginTop: '20px', backgroundColor: 'white', margin: 'auto' }}>
-        <thead>
-            <tr>
-
-                <th style={{ border: '1px solid #A70909', color: 'white', backgroundColor: '#A70909', padding: '10px', textAlign: 'center' }}>
-                    My Bookings
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-
-                <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '5px' }} >
-                    <ViewBookings />
-                </td>
-            </tr>
-        </tbody>
-    </table>)
+    return (
+        <table className="bookings-table">
+            <thead>
+                <tr>
+                    <th>My Bookings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <ViewBookings />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    );
 };
+
 
 
 export default Bookings;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import './styles/ViewProfile.css';
 
 const ViewProfile = () => {
     const location = useLocation();
@@ -36,20 +37,35 @@ const ViewProfile = () => {
     }, [userId]); 
 
     return (
-        <div>
-            {userId && <p>Id from URL: {userId}</p>}
-            <h1>User Profile</h1>
+        <div className="ViewProfile-container"> 
             {userData ? (
-                <div>
-
-                    <p>Username: {userData.username}</p>
-                    <p>Email: {userData.email}</p>
-                    <p>Phone Number: {userData.phoneNumber}</p>
-                    <p>Name: {userData.firstName} {userData.lastName}</p>
-                    <p>Biography: {userData.biography}</p>
-                    <p>Account Status: {userData.accountStatus}</p>
-                    <p>Role: {userData.role}</p>
-                </div>
+                <>
+                    <h1 className="ViewProfile-header">{userData.firstName} {userData.lastName}</h1> 
+                    <div className="ViewProfile-block">
+                        <span className="ViewProfile-label">Username: </span>
+                        <span className="ViewProfile-value">{userData.username}</span>
+                    </div>
+                    <div className="ViewProfile-block">
+                        <span className="ViewProfile-label">Name: </span>
+                        <span className="ViewProfile-value">{userData.firstName} {userData.lastName}</span>
+                    </div>
+                    <div className="ViewProfile-block">
+                        <span className="ViewProfile-label">Email: </span>
+                        <span className="ViewProfile-value">{userData.email}</span>
+                    </div>
+                    <div className="ViewProfile-block">
+                        <span className="ViewProfile-label">Phone Number: </span>
+                        <span className="ViewProfile-value">{userData.phoneNumber}</span>
+                    </div>
+                    <div className="ViewProfile-block">
+                        <span className="ViewProfile-label">Biography: </span>
+                        <span className="ViewProfile-value">{userData.biography}</span>
+                    </div>
+                    <div className="ViewProfile-block">
+                        <span className="ViewProfile-label">Role: </span>
+                        <span className="ViewProfile-value">{userData.role}</span>
+                    </div> 
+                </>
             ) : (
                 <p>Loading user data...</p>
             )}

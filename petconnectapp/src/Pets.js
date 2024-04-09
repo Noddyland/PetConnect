@@ -108,12 +108,14 @@ const Pets = () => {
         const goBack = () => navigate(-1);
     
         return (
-            <button onClick={goBack}>Go Back</button>
+            <button onClick={goBack} className="back-button">Go Back</button>
+
         );
     }
     return (
-        <div>
+        <div className="pets-table-wrapper">
             <br></br>
+            <BackButton />
             <table style={{ borderCollapse: 'collapse', width: '80%', marginTop: '20px', backgroundColor: 'white', margin: 'auto' }}>
                 <thead>
                     <tr>
@@ -134,8 +136,9 @@ const Pets = () => {
                 </tbody>
                 
             </table>
-            <BackButton />
-        </div>);
+            </div>
+ 
+        );
 };
 
 

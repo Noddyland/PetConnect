@@ -57,9 +57,6 @@ const Navbar = () => {
                 <li>
                     <Link to="/services">Services</Link>
                 </li>
-                <li>
-                    <Link to="/contact">Contact Us</Link>
-                </li>
             </ul>
         </nav>
     );
