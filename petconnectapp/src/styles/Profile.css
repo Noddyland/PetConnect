@@ -24,3 +24,7 @@
     margin: 0 10px; /* Adds margin between the components */
     box-sizing: border-box; /* Includes padding and border in the width and height of the elements */
 }
+
+.bookingsOwner{
+margin-top: 1rem;
+}

@@ -87,7 +87,7 @@ const ViewPets = () => {
                         <li key={pet.petId}>
                             <button onClick={() => handleRemovePet(pet.petId)}>Remove Pet</button>
                             <button onClick={() => handleEditPet(pet.petId, pet)}>Edit Pet</button>
-                            <strong>Name:</strong> {pet.name}, <strong>Type:</strong> {pet.type}, <strong>DOB:</strong> {pet.dob}
+                            <strong>Name:</strong> {pet.name} <strong>Type:</strong> {pet.type} <strong>DOB:</strong> {pet.dob}
                         </li>
                     ))}
                 </ul>

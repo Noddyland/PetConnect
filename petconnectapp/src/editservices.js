@@ -1,11 +1,13 @@
 // FormComponent.js
 import React, { useState } from 'react';
 import './styles/editservices.css'
+import { Link } from 'react-router-dom';
 
 const EditServices = () => {
     const [location, setLocation] = useState('');
     const [selectedPets, setSelectedPets] = useState([]);
     const [selectedServices, setSelectedServices] = useState([]);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const handleCheckboxChange = (e, type) => {
         const { value, checked } = e.target;
@@ -71,6 +73,7 @@ const EditServices = () => {
             if (response.ok) {
                 console.log("Updated successfully!");
                 document.getElementById('updateConfirmation').innerHTML = `Updated successfully!`;
+                setFormSubmitted(true);
             } else {
                 console.error("Failed to update.", await response.json());
             }
@@ -81,87 +84,92 @@ const EditServices = () => {
 
 
     return (
-        <form className="edit-services" onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="name">Location</label>
-                <input type="text" id="location" name="location" value={location} onChange={handleLocationChange} />
-            </div>
-            <div>
-                <label htmlFor="pets">Pets</label>
+        <div>
+            <form className="edit-services" onSubmit={handleSubmit}>
                 <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="dog"
-                            checked={selectedPets.includes('dog')}
-                            onChange={(e) => handleCheckboxChange(e, 'pets')}
-                        />
-                        Dog
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="cat"
-                            checked={selectedPets.includes('cat')}
-                            onChange={(e) => handleCheckboxChange(e, 'pets')}
-                        />
-                        Cat
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="rabbit"
-                            checked={selectedPets.includes('rabbit')}
-                            onChange={(e) => handleCheckboxChange(e, 'pets')}
-                        />
-                        Rabbit
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="exotic"
-                            checked={selectedPets.includes('exotic')}
-                            onChange={(e) => handleCheckboxChange(e, 'pets')}
-                        />
-                        Exotic
-                    </label>
+                    <label htmlFor="name">Location</label>
+                    <input type="text" id="location" name="location" value={location} onChange={handleLocationChange} />
                 </div>
                 <div>
-                    <label htmlFor="name">Services</label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="dogWalking"
-                            checked={selectedServices.includes('dogWalking')}
-                            onChange={(e) => handleCheckboxChange(e, 'services')}
-                        />
-                        Dog Walking
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="petSitting"
-                            checked={selectedServices.includes('petSitting')}
-                            onChange={(e) => handleCheckboxChange(e, 'services')}
-                        />
-                        Pet Sitting
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="grooming"
-                            checked={selectedServices.includes('grooming')}
-                            onChange={(e) => handleCheckboxChange(e, 'services')}
-                        />
-                        Grooming
-                    </label>
+                    <label htmlFor="pets">Pets</label>
+                    <div>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="dog"
+                                checked={selectedPets.includes('dog')}
+                                onChange={(e) => handleCheckboxChange(e, 'pets')}
+                            />
+                            Dog
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="cat"
+                                checked={selectedPets.includes('cat')}
+                                onChange={(e) => handleCheckboxChange(e, 'pets')}
+                            />
+                            Cat
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="rabbit"
+                                checked={selectedPets.includes('rabbit')}
+                                onChange={(e) => handleCheckboxChange(e, 'pets')}
+                            />
+                            Rabbit
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="exotic"
+                                checked={selectedPets.includes('exotic')}
+                                onChange={(e) => handleCheckboxChange(e, 'pets')}
+                            />
+                            Exotic
+                        </label>
+                    </div>
+                    <div>
+                        <label htmlFor="name">Services</label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="dogWalking"
+                                checked={selectedServices.includes('dogWalking')}
+                                onChange={(e) => handleCheckboxChange(e, 'services')}
+                            />
+                            Dog Walking
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="petSitting"
+                                checked={selectedServices.includes('petSitting')}
+                                onChange={(e) => handleCheckboxChange(e, 'services')}
+                            />
+                            Pet Sitting
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="grooming"
+                                checked={selectedServices.includes('grooming')}
+                                onChange={(e) => handleCheckboxChange(e, 'services')}
+                            />
+                            Grooming
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <input type="submit" value="Submit" />
-            </div>
-            <p id="updateConfirmation"></p>
-        </form >
+                <div>
+                    <input type="submit" value="Submit" />
+                </div>
+                <p id="updateConfirmation"></p>
+            </form >
+            {formSubmitted && (
+                <Link to="/Profile" className="go-back">Go back</Link>
+            )}
+        </div>
 
     );
 };

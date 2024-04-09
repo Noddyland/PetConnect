@@ -59,7 +59,7 @@ const MyServices = () => {
                                     <td>Services: {status.dogWalking} {status.petSitting} {status.grooming}</td>
                                 </tr>
                                 <tr>
-                                    <td><Link to="/EditServices">Update</Link></td>
+                                    <td><Link to="/EditServices" className="updateServices">Update</Link></td>
                                 </tr>
                             </>
                         ))}

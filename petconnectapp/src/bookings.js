@@ -60,7 +60,11 @@ const ViewBookings = () => {
                 const userRole = userObject.user.role;
 
                 try {
+<<<<<<< HEAD
                     const response = await fetch(`http://localhost:5000/bookings?userid=${userid}&userRole=${userRole}`, {
+=======
+                    const response = await fetch(`http://localhost:5000/bookings/minders/${userid}`, {
+>>>>>>> f9607c89c858a9fe74a0f47b4abc3d657ebdec86
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -188,8 +192,8 @@ const ViewBookings = () => {
                             <div>
                                 {buttonClicked[booking.bookingId] && (
                                     <>
-                                        <button onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
-                                        <button onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
+                                        <button className = "ac-button" onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
+                                        <button className ="ac-button" onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
                                     </>
                                 )}
                             </div>
