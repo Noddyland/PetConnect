@@ -81,6 +81,9 @@ const Search = () => {
                                 <option
                                     value="dog-walking">Dog Walking
                                 </option>
+                                <option
+                                    value="grooming">Grooming
+                                </option>
                             </select>
                         </div>
                         <div className="dropdown-content">
