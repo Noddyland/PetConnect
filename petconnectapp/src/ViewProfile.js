@@ -66,7 +66,9 @@ const ViewProfile = () => {
                         <span className="ViewProfile-label">Role: </span>
                         <span className="ViewProfile-value">{userData.role}</span>
                     </div> 
-                    <Link to={`/ReviewMinder?userId=${userId}&firstName=${userData.firstName}`} style={{ color: '#A70909' }}>Review {userData.firstName}</Link>
+                    <Link to={`/ReviewMinder?userId=${userId}&firstName=${userData.firstName}`} style={{ color: '#A70909' }}>Review {userData.firstName}</Link> 
+                    <br></br>
+                    <Link to={`/ReportUser?userId=${userId}&firstName=${userData.firstName}`} style={{ color: '#A70909' }}>Report {userData.firstName}</Link>
                 </>
             ) : (
                 <p>Loading user data...</p>

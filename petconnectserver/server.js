@@ -33,13 +33,7 @@ app.all('/', function (req, res, next) {
 app.post('/register', async (req, res) => {
   try {
     const { username, password, email, phoneNumber, firstName, lastName, biography, userRole } = req.body;
-    var accountStatus = "";
-    if (userRole == "minder") {
-      accountStatus = "pending";
-    } else {
-      accountStatus = "approved";
-    }
-
+    var accountStatus = userRole === "minder" ? "pending" : "approved";
 
     // Hash the password with bcrypt
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -50,9 +44,22 @@ app.post('/register', async (req, res) => {
         res.status(400).json({ "error": err.message });
         return;
       }
+      const userId = this.lastID;
+
+      // If the user is a minder, add an entry in the minderStatus table
+      if (userRole === "minder") {
+        const minderSql = 'INSERT INTO minderStatus (minderId, active, city, dog, cat, rabbit, exotic, dogWalking, petSitting, grooming) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.run(minderSql, [userId, true, "None", false, false, false, false, false, false, false], function(minderErr) {
+          if (minderErr) {
+            res.status(400).json({ "error": minderErr.message });
+            return;
+          }
+        });
+      }
+
       res.json({
         "message": "success",
-        "data": { id: this.lastID }
+        "data": { id: userId }
       });
     });
   } catch (error) {
@@ -611,5 +618,21 @@ app.get('/GetAvgStarRating/:userId', (req, res) => {
           return res.status(500).json({ error: err.message });
       }
       res.json({ avgRating: row ? row.avgRating : 0 });
+  });
+});
+
+// REPORT USER ROUTE
+
+app.post('/submitReport', (req, res) => {
+  const { reportedUserId, reporterId, reportText } = req.body;
+  const sql = `INSERT INTO reports (reportDetails, authorId, subjectId) VALUES (?, ?, ?)`;
+
+  db.run(sql, [reportText, reporterId, reportedUserId], function (err) {
+    if (err) {
+      console.error("Failed to insert report:", err.message);
+      res.status(500).json({ "error": "Failed to submit report" });
+      return;
+    }
+    res.status(201).json({ "message": "Report submitted successfully", "reportId": this.lastID });
   });
 });

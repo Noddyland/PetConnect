@@ -17,6 +17,7 @@ import EditServices from './editservices';
 import ViewUsers from './ViewUsers';
 import ViewBookings from './bookings';
 import ViewOwnerBookings from './OwnerBookings';
+import ReportUser from './ReportUser';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/ViewUsers" element={<ViewUsers/>} />
           <Route path="/ViewBookings" element={<ViewBookings/>} />
           <Route path="/ViewOwnerBookings" element={<ViewOwnerBookings/>} />
+          <Route path="/ReportUser" element={<ReportUser/>}/>
         </Routes>
       </Router>
 

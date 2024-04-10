@@ -21,6 +21,7 @@ const ApproveMinders = () => {
             if (response.ok) {
                 const data = await response.json();
                 setPendingMinders(data.pendingMinders); 
+                
             } else {
                 console.error("Failed to fetch minders:", await response.text());
             }
@@ -42,6 +43,7 @@ const ApproveMinders = () => {
     
             if (response.ok) {
                 fetchPendingMinders();
+                window.location.reload(false);
             } else {
                 console.error("Failed to process decision for minder:", await response.text());
             }
