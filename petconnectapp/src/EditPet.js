@@ -53,6 +53,7 @@ const EditPet = ({ petId, petDetails, onClose }) => {
     
             if (response.ok) {
                 console.log('Pet details updated successfully');
+                window.location.reload(false);
                 onClose();
             } else {
                 console.error('Failed to update pet details');

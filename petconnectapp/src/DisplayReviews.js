@@ -46,7 +46,7 @@ const ViewReviews = () => {
                         <li key={review.id} className='review_'>
                             Rating:  {review.starRating} <br/> 
                             Review: {review.reviewDetails} <br/>
-                            By {review.username}
+                            By {review.firstName} {review.lastName}
                         </li>
                     ))}
                 </ul>

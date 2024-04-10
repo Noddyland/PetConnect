@@ -41,7 +41,7 @@ const ViewProfile = () => {
         <div className="ViewProfile-container"> 
             {userData ? (
                 <>
-                    <div className = "profile-header"><h1 className="ViewProfile-header"><u>{userData.firstName} {userData.lastName}</u><AvgStarRating userId={userData.id} /></h1></div>
+                    <div className = "profile-header"><h1 className="ViewProfile-header"><u>{userData.firstName} {userData.lastName}</u></h1><AvgStarRating userId={userData.id} /></div>
                     <div className="ViewProfile-block">
                         <span className="ViewProfile-label">Username: </span>
                         <span className="ViewProfile-value">{userData.username}</span>

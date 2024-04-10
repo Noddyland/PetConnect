@@ -47,8 +47,8 @@ const ViewBookings = () => {
         if(userObject.user.role == "minder"){
             return (
             <div>
-                <button className = "ac-button" onClick={(e) => handleAccept(e, booking.bookingId)}>Accept</button>
-                <button className ="ac-button" onClick={(e) => handleDeny(e, booking.bookingId)}>Deny</button>
+                <button className = "ac-button" onClick={(e) => handleAccept(e, booking.booking.bookingId)}>Accept</button>
+                <button className ="ac-button" onClick={(e) => handleDeny(e, booking.booking.bookingId)}>Deny</button>
             </div> );
         }
         return(null);
@@ -155,13 +155,14 @@ const ViewBookings = () => {
     const handleDeny = async (e, bookingId) => {
         e.preventDefault();
         const userObject = JSON.parse(localStorage.getItem('userObject'));
-
+        console.log(bookingId);
         const bookingStatus = {
             bookingId: bookingId,
             minderId: userObject.user.id,
             status: 'denied'
         };
 
+        console.log("Booking ID:", bookingId);
         try {
             const response = await fetch(`${backendUrl}/bookings`, {
                 method: 'POST',

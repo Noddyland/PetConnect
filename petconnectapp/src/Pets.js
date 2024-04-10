@@ -6,7 +6,7 @@ import ViewPets from './ViewPets';
 const AddPets = () => {
     const [petDetails, setPetDetails] = useState({
         petName: '',
-        type: '',
+        type: 'dog',
         dob: '',
         breed: '',
         weight: '',
@@ -53,6 +53,7 @@ const AddPets = () => {
                             special: '',
                             emergencyNumber: ''
                         });
+                        window.location.reload(false);
                     } else {
                         const errorData = await response.json();
                         console.error("Failed to add pet:", errorData.message);
@@ -115,7 +116,6 @@ const Pets = () => {
     return (
         <div className="pets-table-wrapper">
             <br></br>
-            <BackButton />
             <table style={{ borderCollapse: 'collapse', width: '80%', marginTop: '20px', backgroundColor: 'white', margin: 'auto' }}>
                 <thead>
                     <tr>
@@ -134,8 +134,9 @@ const Pets = () => {
                     </tr>
             
                 </tbody>
-                
             </table>
+            
+
             </div>
  
         );

@@ -214,23 +214,32 @@ app.put('/editpet/:petId', (req, res) => {
 
 // REMOVE PET ROUTE
 app.delete('/removepet/:petId', (req, res) => {
-  try {
-    const { petId } = req.params;
+  const { petId } = req.params;
+  
+  db.serialize(() => {
+    db.run('BEGIN TRANSACTION;');
 
-    const sql = 'DELETE FROM pets WHERE petId = ?';
-
-    db.run(sql, [petId], function (err) {
+    db.run('DELETE FROM bookings WHERE petId = ?', [petId], function (err) {
       if (err) {
+        db.run('ROLLBACK;'); // rollback if there's an error
         res.status(400).json({ "error": err.message });
         return;
       }
-      res.json({ "message": "Pet removed successfully" });
+
+      db.run('DELETE FROM pets WHERE petId = ?', [petId], function (err) {
+        if (err) {
+          db.run('ROLLBACK;'); // rollback if there's an error
+          res.status(400).json({ "error": err.message });
+          return;
+        }
+
+        db.run('COMMIT;'); 
+        res.json({ "message": "Pet removed successfully" });
+      });
     });
-  } catch (error) {
-    console.error('Error removing pet:', error);
-    res.status(500).json({ "error": "An error occurred while removing the pet" });
-  }
+  });
 });
+
 
 // GET BOOKINGS FOR MINDERS ROUTE 
 
@@ -241,7 +250,7 @@ app.get('/bookings/minders/:userid', (req, res) => {
     FROM bookings AS b
     LEFT OUTER JOIN pets AS p ON b.petId = p.petId
     LEFT OUTER JOIN users AS u ON b.ownerId = u.id
-    WHERE b.minderID = ?`;
+    WHERE b.minderID = ? AND b.status != 'denied'`;
 
   db.all(sql, [userid], (err, rows) => {
     if (err) {
@@ -296,7 +305,7 @@ app.delete('/bookings/remove/:bookingId', (req, res) => {
 app.get('/review/:userid', (req, res) => {
   const { userid } = req.params;
   const sql = `
-    SELECT r.*, u.username
+    SELECT r.*, u.username, u.firstName, u.lastName
     FROM reviews AS r
     LEFT OUTER JOIN users AS u on r.authorID = u.id
     WHERE r.subjectID =?`;
