@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './styles/bookings.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const ViewBookings = () => {
     const [bookings, setBookings] = useState([]);
@@ -52,6 +52,21 @@ const ViewBookings = () => {
             </div> );
         }
         return(null);
+    }
+
+    const MakeProfileLink = (booking) => {
+        const userObject = JSON.parse(localStorage.getItem('userObject'));
+        if(userObject.user.role == "minder"){
+            return (
+            <div>
+                <strong>Pet Owner:</strong> <Link to={`/ViewProfile?userId=${booking.booking.ownerId}`} style={{ color: '#A70909' }}>{booking.booking.firstName} {booking.booking.lastName}</Link>
+            </div> );
+        }
+        return (
+            
+            <div>
+                <strong>Pet Minder:</strong> <Link to={`/ViewProfile?userId=${booking.booking.minderId}`} style={{ color: '#A70909' }}>{booking.booking.firstName} {booking.booking.lastName}</Link>
+            </div> );
     }
 
     useEffect(() => {
@@ -185,7 +200,7 @@ const ViewBookings = () => {
                 <ul>
                     {filteredBookings.map((booking) => (
                         <li key={booking.bookingId} className='bookings_'>
-                            <strong>Pet Minder:</strong> {booking.firstName} {booking.lastName}
+                            <MakeProfileLink booking={booking} />
                             <strong> Pet:</strong> {booking.name} <strong>Type:</strong> {booking.type}
                             <br/><strong>Date:</strong> {formatDate(booking.dateTime)}
                             <strong> Duration:</strong> {booking.durationMins} mins

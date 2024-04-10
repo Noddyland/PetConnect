@@ -11,6 +11,15 @@
 }
 
 /* Header with a more subtle appearance */
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+}
+
+
 .ViewProfile-header {
     font-size: 28px;
     font-weight: 600;

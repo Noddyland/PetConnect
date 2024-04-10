@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './styles/bookings.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const ViewOwnerBookings = () => {
     const [bookings, setBookings] = useState([]);
@@ -114,7 +114,7 @@ const ViewOwnerBookings = () => {
                     {filteredBookings.map((booking) => (
                         <li key={booking.bookingId} className='bookings_'>
                             <div>
-                                <strong>Pet Minder:</strong> {booking.firstName} {booking.lastName}
+                                <strong>Pet Minder:</strong> <Link to={`/ViewProfile?userId=${booking.minderId}`} style={{ color: '#A70909' }}>{booking.firstName} {booking.lastName}</Link>
                             </div>
                             <div>
                                 <strong> Pet:</strong> {booking.name} <strong>Type:</strong> {booking.type}

@@ -31,12 +31,12 @@ const EditPet = ({ petId, petDetails, onClose }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log("Input changed:", name, value); // Log the event
+        console.log("Input changed:", name, value); 
         setPetDetailsForm(prevState => ({
             ...prevState,
             [name]: value
         }));
-        console.log("Updated petDetailsForm:", petDetailsForm); // Log the updated state
+        console.log("Updated petDetailsForm:", petDetailsForm); 
     };
     
 

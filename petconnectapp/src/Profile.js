@@ -11,6 +11,7 @@ import GetReports from './GetReports';
 import ApproveMinders from './ApproveMinders';
 import OwnerBookings from './OwnerBookings';
 import UserCalendar from './UserCalendar';
+import AvgStarRating from './AvgStarRating';
 
 function DisplayDetails() {
     if (localStorage.getItem('userObject') != null) {
@@ -21,18 +22,22 @@ function DisplayDetails() {
 
         if (userObject.user.role === 'owner') {
             return <div>
-                {reviews}
+                
                 <div className="moderator-panel">
                     <ViewPets />
                     <UserCalendar />
                 </div>
+                {reviews}
+                <br />
                 <div className="bookingsOwner"><OwnerBookings/></div>
             </div>;
         }
         else if (userObject.user.role === 'minder') {
             return <div>
-                {reviews}
+                
                 <div><Bookings /></div>
+                {reviews}
+                <br></br>
                 <div><MyServices /></div>
             </div>;
         }
@@ -50,8 +55,15 @@ function DisplayDetails() {
 function ProfileHeader() {
     const userObjectString = localStorage.getItem('userObject');
     const userObject = JSON.parse(userObjectString);
-    return <h1><u>{userObject.user.firstName} {userObject.user.lastName} - <GetRole role={userObject.user.role} /></u></h1>
+
+    return (
+        <div className="profile-header">
+            <h1><u>{userObject.user.firstName} {userObject.user.lastName} - <GetRole role={userObject.user.role} /></u></h1>
+            <AvgStarRating userId={userObject.user.id} />
+        </div>
+    );
 }
+
 
 function GetRole({ role }) {
     if (role === "owner") {

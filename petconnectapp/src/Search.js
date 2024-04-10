@@ -120,7 +120,6 @@ const Search = () => {
                     <div className="error-message">Please fill out all required fields.</div>
                 )}
             </div>
-            <p>(only London works for now)</p>
         </div>
     );
 }

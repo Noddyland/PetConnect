@@ -28,3 +28,10 @@
 .bookingsOwner{
 margin-top: 1rem;
 }
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers items horizontally in the flex container */
+    text-align: center; /* Centers text within each child element */
+}

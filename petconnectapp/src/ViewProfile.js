@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import './styles/ViewProfile.css';
+import AvgStarRating from './AvgStarRating';
 
 const ViewProfile = () => {
     const location = useLocation();
@@ -40,7 +41,7 @@ const ViewProfile = () => {
         <div className="ViewProfile-container"> 
             {userData ? (
                 <>
-                    <h1 className="ViewProfile-header">{userData.firstName} {userData.lastName}</h1> 
+                    <div className = "profile-header"><h1 className="ViewProfile-header"><u>{userData.firstName} {userData.lastName}</u><AvgStarRating userId={userData.id} /></h1></div>
                     <div className="ViewProfile-block">
                         <span className="ViewProfile-label">Username: </span>
                         <span className="ViewProfile-value">{userData.username}</span>
@@ -65,6 +66,7 @@ const ViewProfile = () => {
                         <span className="ViewProfile-label">Role: </span>
                         <span className="ViewProfile-value">{userData.role}</span>
                     </div> 
+                    <Link to={`/ReviewMinder?userId=${userId}&firstName=${userData.firstName}`} style={{ color: '#A70909' }}>Review {userData.firstName}</Link>
                 </>
             ) : (
                 <p>Loading user data...</p>

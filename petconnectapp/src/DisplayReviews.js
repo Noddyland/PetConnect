@@ -39,7 +39,7 @@ const ViewReviews = () => {
         return(
             <div>
                 <h3>
-                    Reviews
+                    <u>Reviews</u>
                 </h3>
                 <ul>
                     {reviews.map((review) => (

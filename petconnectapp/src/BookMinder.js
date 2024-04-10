@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './styles/BookMinder.css'; // Include your stylesheet
+import AvgStarRating from './AvgStarRating';
 
 const BookMinder = () => {
     const location = useLocation();
@@ -9,8 +10,6 @@ const BookMinder = () => {
     const [selectedPetId, setSelectedPetId] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [duration, setDuration] = useState('');
-
-
 
     useEffect(() => {
         const fetchPets = async () => {
@@ -92,7 +91,7 @@ const BookMinder = () => {
 
     return (
         <div className="book-minder-container">
-            <h1 className="book-minder-header"><u>Book {minderObject.firstName} {minderObject.lastName}</u></h1>
+            <div className = "profile-header"><h1 className="book-minder-header"><u>Book {minderObject.firstName} {minderObject.lastName}</u></h1><AvgStarRating userId={minderObject.id} /></div> 
             <div className="service-info">Service: {minderObject.service}</div>
             <p style={{ color: '#A70909' }}><u>Select a pet:</u></p>
             <select name="pets" id="pet-select" className="pet-select-dropdown" value={selectedPetId} onChange={(e) => setSelectedPetId(e.target.value)}>

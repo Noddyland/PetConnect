@@ -344,7 +344,7 @@ app.get('/ViewProfile/:userId', (req, res) => {
 
   // the sql statement
   const sql = `
-    SELECT username, email, phoneNumber, firstName, lastName, biography, accountStatus, role
+    SELECT id, username, email, phoneNumber, firstName, lastName, biography, accountStatus, role
     FROM users
     WHERE id = ?
   `;
@@ -455,8 +455,8 @@ app.post('/submitReview', async (req, res) => {
   try {
     const { minderId, authorId, reviewText, rating } = req.body;
 
-    const sql = `INSERT INTO reviews (minderId, authorId, text, rating) VALUES (?, ?, ?, ?)`;
-    db.run(sql, [minderId, authorId, reviewText, rating], function (err) {
+    const sql = `INSERT INTO reviews (starRating, reviewDetails, authorId, subjectId) VALUES (?, ?, ?, ?)`;
+    db.run(sql, [rating, reviewText, authorId, minderId], function (err) {
       if (err) {
         res.status(400).json({ "error": err.message });
         return;
@@ -582,5 +582,25 @@ app.get('/GetUsers', (req, res) => {
     res.json({
       users: rows
     });
+  });
+});
+
+// AVERAGE STAR RATING ROUTE
+
+app.get('/GetAvgStarRating/:userId', (req, res) => {
+  const { userId } = req.params;
+
+  const sql = `
+      SELECT AVG(starRating) as avgRating
+      FROM reviews
+      WHERE subjectId = ?
+  `;
+
+  db.get(sql, [userId], (err, row) => {
+      if (err) {
+          console.error('Error fetching average star rating:', err.message);
+          return res.status(500).json({ error: err.message });
+      }
+      res.json({ avgRating: row ? row.avgRating : 0 });
   });
 });

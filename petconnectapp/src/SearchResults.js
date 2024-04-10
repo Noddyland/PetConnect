@@ -60,6 +60,7 @@ const SearchResults = () => {
                             <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.email}</td>
                             <td style={{ border: '1px solid #A70909', textAlign: 'center', padding: '8px' }}>{result.phoneNumber}</td>
                             <BookingLink minderObject = {result} ></BookingLink>
+                            
                         </tr>
                     ))}
                 </tbody>
